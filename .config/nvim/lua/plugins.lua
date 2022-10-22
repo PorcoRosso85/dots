@@ -2,13 +2,10 @@ local utils = require("utils._set_config")
 local conf = utils.conf
 
 vim.cmd [[packadd packer.nvim]]
-require'packer'.startup(function()
-  use("wbthomason/packer.nvim", opt=true)
-end)
 
 require("packer").startup({
   function(use)
-    use("wbthomason/packer.nvim")
+    use{"wbthomason/packer.nvim", opt=true}
 
     use("nvim-lua/plenary.nvim")
 
@@ -199,7 +196,13 @@ require("packer").startup({
 --      },
 --      config = conf("vim-test"),
 --    })
---
+
+    use{
+      "akinsho/toggleterm.nvim",
+      config = function()
+	      require("toggleterm").setup()
+    end}
+
 --    use({
 --      "nvim-neotest/neotest",
 --      requires = {
@@ -358,11 +361,11 @@ require("packer").startup({
 --    })
 
     -- Rust
---    use({
---      "rust-lang/rust.vim",
---      ft = "rust",
---      config = conf('rust'),
---    })
+    use({
+      "rust-lang/rust.vim",
+      ft = "rust",
+      config = conf('rust'),
+    })
 --    use({
 --      "simrat39/rust-tools.nvim",
 --      ft = "rust",
@@ -394,3 +397,4 @@ require("packer").startup({
 })
 
 vim.cmd[[colorscheme onedarkpro]]
+

@@ -2,6 +2,7 @@
 -- https://github1s.com/yanskun/dotfiles/blob/main/
 --
 
+require'plugins'
 require("settings._options")
 require("settings._mappings")
 require("settings._provider")
