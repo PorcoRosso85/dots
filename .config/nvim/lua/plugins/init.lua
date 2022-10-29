@@ -2,13 +2,10 @@ local utils = require("utils._set_config")
 local conf = utils.conf
 
 vim.cmd [[packadd packer.nvim]]
-require'packer'.startup(function()
-  use("wbthomason/packer.nvim", opt=true)
-end)
 
 require("packer").startup({
   function(use)
-    use("wbthomason/packer.nvim")
+    use{"wbthomason/packer.nvim", opt=true}
 
     use("nvim-lua/plenary.nvim")
 
@@ -17,12 +14,12 @@ require("packer").startup({
 --
     use({
       "olimorris/onedarkpro.nvim",
---      config = function()
---        require("onedarkpro").load()
---        require("onedarkpro").setup({
---          theme = "onedark",
---        })
---      end,
+      config = function()
+        require("onedarkpro").load()
+        require("onedarkpro").setup({
+          theme = "onedark",
+        })
+      end,
     })
 --
 --    -- git
@@ -34,14 +31,14 @@ require("packer").startup({
 --      end,
 --    })
 --
---    use({
---      "lewis6991/gitsigns.nvim",
---      requires = "nvim-lua/plenary.nvim",
---      config = function()
---        require("gitsigns").setup()
---      end,
---    })
---
+    use({
+      "lewis6991/gitsigns.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("gitsigns").setup()
+      end,
+    })
+
 --    use({
 --      "sindrets/diffview.nvim",
 --      requires = { "plenary.nvim" },
@@ -63,12 +60,12 @@ require("packer").startup({
     })
 
   -- fuzzy finder
-  use({
-    "ibhagwan/fzf-lua",
-    -- optional icon support
-    requires = { "kyazdani42/nvim-web-devicons" },
-    config = conf("fzf"),
-  })
+    use({
+      "ibhagwan/fzf-lua",
+      -- optional icon support
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = conf("fzflua"),
+    })
 
 --    use({
 --      "nvim-telescope/telescope.nvim",
@@ -105,12 +102,12 @@ require("packer").startup({
 --    })
 --
 --    -- buffer
---    use({
---      "akinsho/bufferline.nvim",
---      requires = { "kyazdani42/nvim-web-devicons" },
---      config = conf("bufferline"),
---    })
---
+    use({
+      "akinsho/bufferline.nvim",
+      requires = { "kyazdani42/nvim-web-devicons" },
+      config = conf("bufferline"),
+    })
+
 --    -- treesitter
 --    use({
 --      "nvim-treesitter/nvim-treesitter",
@@ -142,14 +139,14 @@ require("packer").startup({
       },
     })
 
---    use({
---      "williamboman/mason.nvim",
---      config = conf("mason"),
---      requires = {
---        "williamboman/mason-lspconfig.nvim",
---      }
---    })
---
+    use({
+      "williamboman/mason.nvim",
+      config = conf("mason"),
+      requires = {
+        "williamboman/mason-lspconfig.nvim",
+      }
+    })
+
 --    use({
 --      "jose-elias-alvarez/null-ls.nvim",
 --      requires = {
@@ -185,8 +182,7 @@ require("packer").startup({
         { "hrsh7th/cmp-vsnip", after = "nvim-cmp" },
         { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
         { "petertriho/cmp-git", after = "nvim-cmp" },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "onsails/lspkind.nvim" },
+        { "onsails/lspkind.nvim"},
       },
       config = conf("cmp"),
     })
@@ -199,7 +195,13 @@ require("packer").startup({
 --      },
 --      config = conf("vim-test"),
 --    })
---
+
+    use{
+      "akinsho/toggleterm.nvim",
+      config = function()
+	      require("toggleterm").setup()
+    end}
+
 --    use({
 --      "nvim-neotest/neotest",
 --      requires = {
@@ -317,13 +319,13 @@ require("packer").startup({
 --    use({ "kevinhwang91/nvim-hlslens" })
 --
 --    -- status line
---    use({
---      "nvim-lualine/lualine.nvim",
---      requires = {
---        "nvim-lua/lsp-status.nvim",
---      },
---      config = conf("lualine"),
---    })
+    use({
+      "nvim-lualine/lualine.nvim",
+      requires = {
+        "nvim-lua/lsp-status.nvim",
+      },
+      config = conf("lualine"),
+    })
 --
 --    -- quickfix
 --    use({
@@ -358,21 +360,21 @@ require("packer").startup({
 --    })
 
     -- Rust
---    use({
---      "rust-lang/rust.vim",
---      ft = "rust",
---      config = conf('rust'),
---    })
---    use({
---      "simrat39/rust-tools.nvim",
---      ft = "rust",
---      config = function()
---        require('rust-tools').setup({
---          hover_with_actions = false,
---        })
---      end,
---    })
---
+    use({
+      "rust-lang/rust.vim",
+      ft = "rust",
+      config = conf('rust'),
+    })
+    use({
+      "simrat39/rust-tools.nvim",
+      ft = "rust",
+      config = function()
+        require('rust-tools').setup({
+          hover_with_actions = false,
+        })
+      end,
+    })
+
 --    -- Zig
 --    use({
 --      "ziglang/zig.vim",
@@ -394,3 +396,4 @@ require("packer").startup({
 })
 
 vim.cmd[[colorscheme onedarkpro]]
+
