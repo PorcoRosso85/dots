@@ -97,7 +97,9 @@ fi
 #if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 #    . /etc/bash_completion
 #fi
-. "$HOME/.cargo/env"
+
 export PATH=$PATH:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin
-alias dots='/usr/bin/git --git-dir=/root/.dotfiles/ --work-tree=/root'
 alias mnt="cd /mnt/c/Users/admin.DESKTOP-1PF4AT3/Documents/Apps"
+
+alias dots='/usr/bin/git --git-dir=/root/.dotfiles/ --work-tree=/root'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
