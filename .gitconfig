@@ -1,0 +1,24 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+#	name = root
+#	email = root@DESKTOP-1PF4AT3.localdomain
+
+[alias]
+  cfg = config --global --edit
+
+  ad = add
+  d = diff
+  co = checkout
+  cob = checkout -b
+  cm = commit -m
+  st = status
+  br = branch
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

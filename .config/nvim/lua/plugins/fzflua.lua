@@ -1,5 +1,6 @@
 local utils = require("utils._set_mappings")
 utils.nnoremap("<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>") 
+utils.nnoremap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<cr>") 
 
 return function()
   local ok, fzflua = pcall(require, "fzf-lua")

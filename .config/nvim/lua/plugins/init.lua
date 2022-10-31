@@ -187,20 +187,19 @@ require("packer").startup({
       config = conf("cmp"),
     })
 
---    -- testings
---    use({
---      "vim-test/vim-test",
---      requires = {
---        "akinsho/toggleterm.nvim",
---      },
---      config = conf("vim-test"),
---    })
+    -- testings
+    use({
+      "vim-test/vim-test",
+      requires = {
+        "akinsho/toggleterm.nvim",
+      },
+      config = conf("vim-test"),
+    })
 
-    use{
+    use({
       "akinsho/toggleterm.nvim",
-      config = function()
-	      require("toggleterm").setup()
-    end}
+      config = conf("toggleterm"),
+    })
 
 --    use({
 --      "nvim-neotest/neotest",

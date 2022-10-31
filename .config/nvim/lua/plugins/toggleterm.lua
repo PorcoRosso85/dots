@@ -1,4 +1,4 @@
+require("toggleterm").setup()
 
-require("toggleterm").setup{
-  size = 20
-}
+local utils = require("utils._set_mappings")
+utils.nnoremap("<leader>tt", "<cmd>ToggleTerm<cr>") 
