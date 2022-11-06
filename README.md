@@ -27,7 +27,7 @@ Prior to the installation make sure you have committed the alias to your .bashrc
 ```
 alias dots='/usr/bin/git --git-dir=$HOME.dotfiles/ --work-tree=$HOME'
 echo ".dotfiles" >> .gitignore
-git clone --bare <git-repo-url> $HOME/.dotfiles
+git clone --bare git@github.com:PorcoRosso85/dots.git $HOME/.dotfiles
 alias dots='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 dots checkout
 ```
