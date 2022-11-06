@@ -1,6 +1,11 @@
 local utils = require("utils._set_mappings")
 utils.nnoremap("<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>") 
 utils.nnoremap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<cr>") 
+utils.nnoremap("<leader>fb", "<cmd>lua require('fzf-lua').buffers()<cr>") 
+
+-- shortcut destinations
+utils.nnoremap("<leader>fcfg", "<cmd>lua require('fzf-lua').files({ cwd='~/.config/nvim/' })<cr>")
+utils.nnoremap("<leader>fhome", "<cmd>lua require('fzf-lua').files({ cwd='~/projects/' })<cr>")
 
 return function()
   local ok, fzflua = pcall(require, "fzf-lua")
@@ -16,13 +21,6 @@ return function()
     mapping = {
 --      ["<leader>ff"] = { "<cmd>lua require('fzf-lua').files()<cr>", "fzf find files" }
     }
-
--- require'fzf-lua'.fzf_exec("rg --files", {
---   actions = {
---     ["<leader>ff"] = { "<cmd>lua require('fzf-lua').files()<cr>", "fzf find files" }
---   }
--- })
-
   }
 end
 

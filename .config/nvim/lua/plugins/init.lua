@@ -5,13 +5,16 @@ vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup({
   function(use)
-    use{"wbthomason/packer.nvim", opt=true}
+    use{"wbthomason/packer.nvim"}
 
     use("nvim-lua/plenary.nvim")
+    
+    -- session
+    use{"rmagatti/auto-session"}
 
 --    use("github/copilot.vim")
 --
---
+  -- color
     use({
       "olimorris/onedarkpro.nvim",
       config = function()
@@ -31,13 +34,13 @@ require("packer").startup({
 --      end,
 --    })
 --
-    use({
-      "lewis6991/gitsigns.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("gitsigns").setup()
-      end,
-    })
+--    use({
+--      "lewis6991/gitsigns.nvim",
+--      requires = "nvim-lua/plenary.nvim",
+--      config = function()
+--        require("gitsigns").setup()
+--      end,
+--    })
 
 --    use({
 --      "sindrets/diffview.nvim",
@@ -188,19 +191,19 @@ require("packer").startup({
     })
 
     -- testings
-    use({
-      "vim-test/vim-test",
-      requires = {
-        "akinsho/toggleterm.nvim",
-      },
-      config = conf("vim-test"),
-    })
-
-    use({
-      "akinsho/toggleterm.nvim",
-      config = conf("toggleterm"),
-    })
-
+--    use({
+--      "vim-test/vim-test",
+--      requires = {
+--        "akinsho/toggleterm.nvim",
+--      },
+--      config = conf("vim-test"),
+--    })
+--
+--    use({
+--      "akinsho/toggleterm.nvim",
+--      config = conf("toggleterm"),
+--    })
+--
 --    use({
 --      "nvim-neotest/neotest",
 --      requires = {
@@ -391,6 +394,12 @@ require("packer").startup({
 --    use({
 --      "yanskun/change-case.nvim",
 --    })
+--    use({
+--      "iamcco/markdown-preview.nvim",
+--      run = function() vim.fn["mkdp#util#install"]() end,
+--      config = conf('markdown_preview'),
+--    })
+
   end,
 })
 

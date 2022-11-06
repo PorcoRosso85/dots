@@ -1,3 +1,5 @@
+require("plugins.init")
+
 -- https://github1s.com/yanskun/dotfiles/blob/main/
 
 require("settings._options")

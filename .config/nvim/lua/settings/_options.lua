@@ -11,4 +11,4 @@ o.clipboard = "unnamed"
 o.showcmd = true
 o.swapfile = false
 o.virtualedit = "onemore"
--- o.splitright = true
+o.splitright = true

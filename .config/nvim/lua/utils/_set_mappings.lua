@@ -37,12 +37,12 @@ function M.vnoremap(input, output)
   M.noremap("v", input, output)
 end
 
-function M.nmap(input, output)
-  M.remap("n", input, output)
+function M.tmap(input, output)
+  M.remap("t", input, output)
 end
 
-function M.nnoremap(input, output)
-  M.noremap("n", input, output)
+function M.tnoremap(input, output)
+  M.noremap("t", input, output)
 end
 
 return M
