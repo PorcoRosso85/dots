@@ -7,6 +7,11 @@ chmod +x ~/.install/*
 sh ~/.install/dots.sh
 ```
 
+if you add your original .bashrc to existed one
+```
+chmod +x ~/.install/* && source ~/.install/bashrc.sh
+```
+
 if you use Neovim as soon as installed these dotfiles
 ```
 sh ~/.install/nvim.sh
