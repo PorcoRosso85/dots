@@ -1,6 +1,30 @@
 local lspconfig = require'lspconfig'
 lspconfig.jedi_language_server.setup{}
 
+vim.lsp.start({
+  name = 'jedi-language-server',
+  cmd = {'jedi-language-server'}
+})
+
+-- https://zenn.dev/botamotch/articles/21073d78bc68bf
+--
+-- reference highlight
+local utils = require("utils._set_mappings")
+utils.nnoremap("<S-k>", "<cmd>lua vim.lsp.buf.hover()<cr>")
+--utils.nnoremap("", "<cmd><cr>")
+--utils.nnoremap("", "<cmd><cr>")
+--utils.nnoremap("", "<cmd><cr>")
+vim.cmd [[
+set updatetime=500
+highlight LspReferenceText  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+highlight LspReferenceRead  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+augroup lsp_document_highlight
+  autocmd!
+  autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
+augroup END
+]]
 --return function()
 --  local utils = require("utils._set_config")
 --  local conf_lsp = utils.conf_lsp

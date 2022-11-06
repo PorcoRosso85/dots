@@ -1,24 +1,39 @@
 local utils = require("utils._set_config")
 local conf = utils.conf
-local plug = require("utils._set_vimplug")
+local Plug = require("utils._set_vimplug")
 
-plug.begin("~/.config/nvim/plugged")
+Plug.begin("~/.config/nvim/plugged")
 
-plug("olimorris/onedarkpro.nvim")
+Plug("olimorris/onedarkpro.nvim")
 
-plug("rmagatti/auto-session")
+Plug("rmagatti/auto-session")
 
-plug("folke/which-key.nvim")
+Plug("folke/which-key.nvim")
 
-plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
+Plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
 
-plug("nvim-lualine/lualine.nvim")
+Plug("nvim-lualine/lualine.nvim")
 
-plug("neovim/nvim-lspconfig")
-  plug("hrsh7th/cmp-nvim-lsp")
-  plug("RRethy/vim-illuminate")
+Plug("williamboman/mason.nvim", { config = function() conf("mason") end })
+  Plug("williamboman/mason-lspconfig.nvim", { config = function() conf("mason") end })
+Plug("neovim/nvim-lspconfig")
+  Plug("hrsh7th/cmp-nvim-lsp")
+  Plug("RRethy/vim-illuminate")
 
+Plug('hrsh7th/nvim-cmp', { config = function() conf("cmp") end })
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
 
-plug.ends()
+-- For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+
+-- For luasnip users.
+ Plug 'L3MON4D3/LuaSnip'
+ Plug 'saadparwaiz1/cmp_luasnip'
+
+Plug.ends()
 
 -- vim.cmd("coloerscheme onedarkpro")

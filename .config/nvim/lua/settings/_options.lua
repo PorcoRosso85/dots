@@ -1,14 +1,12 @@
-local o = vim.opt
+vim.opt.number = true
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 
-o.number = true
-o.cursorline = true
-o.cursorcolumn = true
-o.expandtab = true
-o.tabstop = 2
-o.shiftwidth = 2
-
-o.clipboard = "unnamed"
-o.showcmd = true
-o.swapfile = false
-o.virtualedit = "onemore"
-o.splitright = true
+vim.opt.clipboard = "unnamed"
+vim.opt.showcmd = true
+vim.opt.swapfile = false
+vim.opt.virtualedit = "onemore"
+vim.opt.splitright = true
