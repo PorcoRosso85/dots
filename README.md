@@ -3,21 +3,21 @@
 ## Starting from scratch
 If you haven't been tracking your configurations in a Git repository before, you can start using this technique easily with these lines:
 ```
-git init --bare $HOME/.cfg
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-config config --local status.showUntrackedFiles no
-echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
+git init --bare $HOME/.dotfiles
+alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dots config --local status.showUntrackedFiles no
+echo "alias dots='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
 ```
 ```
 curl -Lks http://bit.do/cfg-init | /bin/bash
 ```
 ```
-config status
-config add .vimrc
-config commit -m "Add vimrc"
-config add .bashrc
-config commit -m "Add bashrc"
-config push
+dots status
+dots add .vimrc
+dots commit -m "Add vimrc"
+dots add .bashrc
+dots commit -m "Add bashrc"
+dots push
 ```
 
 ## Install your dotfiles onto a new system (or migrate to this setup)
@@ -25,11 +25,11 @@ If you already store your configuration/dotfiles in a Git repository, on a new s
 
 Prior to the installation make sure you have committed the alias to your .bashrc or .zsh:
 ```
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-echo ".cfg" >> .gitignore
-git clone --bare <git-repo-url> $HOME/.cfg
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-config checkout
+alias dots='/usr/bin/git --git-dir=$HOME.dotfiles/ --work-tree=$HOME'
+echo ".dotfiles" >> .gitignore
+git clone --bare <git-repo-url> $HOME/.dotfiles
+alias dots='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+dots checkout
 ```
 
 
