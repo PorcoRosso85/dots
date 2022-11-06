@@ -35,4 +35,4 @@ do
   fi
 done
 
-#source $HOME/forgit/forgit.plugin.sh
+#source $HOME/.bashrcs/forgit/forgit.plugin.sh
