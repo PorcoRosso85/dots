@@ -1,8 +1,11 @@
--- https://github1s.com/yanskun/dotfiles/blob/main/
+require'vimplugs'
 
-require("settings._options")
-require("settings._mappings")
-require("settings._provider")
+require'settings._mappings'
+require'settings._options'
+
+--require("settings._mappings")
+--require("settings._options")
+--require("settings._provider")
 
 local ok, reload = pcall(require, "plenary.reload")
 RELOAD = ok and reload.reload_module or function(...)

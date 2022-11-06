@@ -10,15 +10,8 @@ utils.vnoremap("<Down>", "<nop>")
 utils.vnoremap("<Left>", "<nop>")
 utils.vnoremap("<Right>", "<nop>")
 
-
--- require('which-key').register {
---   name = 'telescope',
---   ['<leader>ff'] = { "<cmd>lua require('telescope.builtin').find_files({find_command = " .. find_command .. " })<cr>",
---     'telescope find file' },
-
-
+-- whichkey for default command
 local whichkey = require("which-key")
-
 whichkey.setup()
 
 -- :h ins-completion
@@ -47,3 +40,60 @@ whichkey.register({
 },
 { prefix = "<leader>" }
 )
+
+
+-- quickfix
+-- utils.nnoremap("<leader>qf", "<nop>")
+
+
+-- buffer
+utils.nnoremap("<C-j>", "<cmd>:bnext<cr>")
+utils.nnoremap("<C-k>", "<cmd>:bnext<cr>")
+
+-- terminal
+utils.nnoremap("<leader>t", "<cmd>vs|exe 'resize ' . (winwidth(0)*2/3)|exe 'resize ' . (winheight(0)*2/1)|te<cr>")
+utils.tnoremap("<C-W>n", "<cmd>new<cr>")
+utils.tnoremap("<C-W><C-N>", "<cmd>new<cr>")
+utils.tnoremap("<C-W>q", "<cmd>quit<cr>")
+utils.tnoremap("<C-W><C-Q>", "<cmd>quit<cr>")
+utils.tnoremap("<C-W>c", "<cmd>close<cr>")
+utils.tnoremap("<C-W>o", "<cmd>only<cr>")
+utils.tnoremap("<C-W><C-O>", "<cmd>only<cr>")
+utils.tnoremap("<C-W><Down", "<cmd>wincmd j<cr>")
+utils.tnoremap("<C-W><C-J>", "<cmd>wincmd j<cr>")
+utils.tnoremap("<C-W>j", "<cmd>wincmd j<cr>")
+utils.tnoremap("<C-W><Up> ", "<cmd>wincmd k<cr>")
+utils.tnoremap("<C-W><C-K>", "<cmd>wincmd k<cr>")
+utils.tnoremap("<C-W>k", "<cmd>wincmd k<cr>")
+utils.tnoremap("<C-W><Left", "<cmd>wincmd h<cr>")
+utils.tnoremap("<C-W><C-H>", "<cmd>wincmd h<cr>")
+utils.tnoremap("<C-W><BS> ", "<cmd>wincmd h<cr>")
+utils.tnoremap("<C-W>h", "<cmd>wincmd h<cr>")
+utils.tnoremap("<C-W><Righ", "<cmd>wincmd l<cr>")
+utils.tnoremap("<C-W><C-L>", "<cmd>wincmd l<cr>")
+utils.tnoremap("<C-W>l", "<cmd>wincmd l<cr>")
+utils.tnoremap("<C-W>w", "<cmd>wincmd w<cr>")
+utils.tnoremap("<C-W><C-W>", "<cmd>wincmd w<cr>")
+utils.tnoremap("<C-W>W", "<cmd>wincmd W<cr>")
+utils.tnoremap("<C-W>t", "<cmd>wincmd t<cr>")
+utils.tnoremap("<C-W><C-T>", "<cmd>wincmd t<cr>")
+utils.tnoremap("<C-W>b", "<cmd>wincmd b<cr>")
+utils.tnoremap("<C-W><C-B>", "<cmd>wincmd b<cr>")
+utils.tnoremap("<C-W>p", "<cmd>wincmd p<cr>")
+utils.tnoremap("<C-W><C-P>", "<cmd>wincmd p<cr>")
+utils.tnoremap("<C-W>P", "<cmd>wincmd P<cr>")
+utils.tnoremap("<C-W>r", "<cmd>wincmd r<cr>")
+utils.tnoremap("<C-W><C-R>", "<cmd>wincmd r<cr>")
+utils.tnoremap("<C-W>R", "<cmd>wincmd R<cr>")
+utils.tnoremap("<C-W>x", "<cmd>wincmd x<cr>")
+utils.tnoremap("<C-W><C-X>", "<cmd>wincmd x<cr>")
+utils.tnoremap("<C-W>K", "<cmd>wincmd K<cr>")
+utils.tnoremap("<C-W>J", "<cmd>wincmd J<cr>")
+utils.tnoremap("<C-W>H", "<cmd>wincmd H<cr>")
+utils.tnoremap("<C-W>L", "<cmd>wincmd L<cr>")
+utils.tnoremap("<C-W>T", "<cmd>wincmd T<cr>")
+utils.tnoremap("<C-W>=", "<cmd>wincmd =<cr>")
+utils.tnoremap("<C-W>-", "<cmd>wincmd -<cr>")
+utils.tnoremap("<C-W>+", "<cmd>wincmd +<cr>")
+utils.tnoremap("<C-W>z", "<cmd>pclose<cr>")
+utils.tnoremap("<C-W><C-Z>", "<cmd>pclose<cr>")
