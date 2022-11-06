@@ -12,7 +12,8 @@ Plug("folke/which-key.nvim")
 
 Plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
 
-Plug("nvim-lualine/lualine.nvim")
+Plug("nvim-lualine/lualine.nvim", { config = function() conf("lualine") end })
+  Plug("kyazdani42/nvim-web-devicons")
 
 Plug("williamboman/mason.nvim", { config = function() conf("mason") end })
   Plug("williamboman/mason-lspconfig.nvim", { config = function() conf("mason") end })
