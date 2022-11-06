@@ -3,7 +3,7 @@
 ## Usage after clone this repo/branch
 ```
 git clone -b vimplug --bare git@github.com:PorcoRosso85/dots.git ~/.dotfiles &&\
-alias dots='/usr/bin/git --git-dir=$HOME.dotfiles/ --work-tree=$HOME' &&\
+alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' &&\
 echo ".dotfiles" >> .gitignore &&\
 dots checkout &&\
 chmod +x ~/.install/*
