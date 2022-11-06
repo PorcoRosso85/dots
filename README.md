@@ -5,13 +5,12 @@
 git clone -b vimplug --bare git@github.com:PorcoRosso85/dots.git ~/.dotfiles &&\
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' &&\
 echo ".dotfiles" >> .gitignore &&\
-dots checkout &&\
-chmod +x ~/.install/*
+dots checkout
 ```
 
 if you add your original .bashrc to existed one
 ```
-chmod +x ~/.install/* && source ~/.install/bashrc.sh
+source ~/.bashrcs/bashrc.sh
 ```
 
 if you use Neovim as soon as installed these dotfiles
