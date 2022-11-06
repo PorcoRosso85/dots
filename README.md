@@ -2,7 +2,11 @@
 
 ## Usage after clone this repo/branch
 ```
-git clone -b vimplug --bare git@github.com:PorcoRosso85/dots.git ~/.dotfile && chmod +x ~/.install/* && sh ~/.install/dots.sh
+git clone -b vimplug --bare git@github.com:PorcoRosso85/dots.git ~/.dotfile &&\
+alias dots='/usr/bin/git --git-dir=$HOME.dotfiles/ --work-tree=$HOME' &&\
+echo ".dotfiles" >> .gitignore &&\
+dots checkout &&\
+chmod +x ~/.install/*
 ```
 
 if you add your original .bashrc to existed one
