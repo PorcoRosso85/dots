@@ -6,7 +6,8 @@ rm -r .dotfiles/ .config/ .install/ .bashrcs/ .gitconfig README.md &&\
 git clone -b vimplug --bare git@github.com:PorcoRosso85/dots.git ~/.dotfiles &&\
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' &&\
 echo ".dotfiles" >> .gitignore &&\
-dots checkout
+dots checkout &&\
+echo 'source ~/.bashrcs/bashrc.sh' >> ~/.bashrc && source ~/.bashrc
 ```
 
 if you add your original .bashrc to existed one
