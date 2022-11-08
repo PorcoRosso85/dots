@@ -4,7 +4,9 @@ local Plug = require("utils._set_vimplug")
 
 Plug.begin("~/.config/nvim/plugged")
 
-Plug("olimorris/onedarkpro.nvim")
+-- setting
+--Plug("olimorris/onedarkpro.nvim")
+Plug("cocopon/iceberg.vim")
 
 Plug("rmagatti/auto-session")
 
@@ -15,6 +17,9 @@ Plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
 Plug("nvim-lualine/lualine.nvim", { config = function() conf("lualine") end })
   Plug("kyazdani42/nvim-web-devicons")
 
+Plug("beauwilliams/focus.nvim", { config = function() conf("focus") end })
+
+-- language server
 Plug("williamboman/mason.nvim", { config = function() conf("mason") end })
   Plug("williamboman/mason-lspconfig.nvim", { config = function() conf("mason") end })
 Plug("neovim/nvim-lspconfig")
@@ -37,4 +42,7 @@ Plug('hrsh7th/nvim-cmp', { config = function() conf("cmp") end })
 
 Plug.ends()
 
--- vim.cmd("coloerscheme onedarkpro")
+-- vim.cmd("colorscheme onedarkpro")
+vim.cmd("colorscheme iceberg")
+vim.cmd("hi link UnfocusedWindow VertSplit")
+vim.cmd("hi link FocusedWindow Normal")
