@@ -47,9 +47,9 @@ whichkey.register({
 
 
 -- buffer
-utils.nnoremap("<C-j><C-j>", "<cmd>:bnext<cr>")
-utils.nnoremap("<C-j><C-k>", "<cmd>:bprev<cr>")
-utils.nnoremap("<C-j><C-d>", "<cmd>:bdelete<cr>")
+--utils.nnoremap("<C-j><C-j>", "<cmd>:bnext<cr>")
+--utils.nnoremap("<C-j><C-k>", "<cmd>:bprev<cr>")
+--utils.nnoremap("<C-j><C-d>", "<cmd>:bdelete<cr>")
 
 -- terminal
 utils.nnoremap("<leader>t", "<cmd>vs|exe 'resize ' . (winwidth(0)*2/3)|exe 'resize ' . (winheight(0)*2/1)|te<cr>")
