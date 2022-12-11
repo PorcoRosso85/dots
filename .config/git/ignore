@@ -1,1 +1,6 @@
 /plugged/
+/tmp/
+/db/
+/database/
+/pgdata/
+

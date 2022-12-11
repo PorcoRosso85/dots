@@ -1,6 +1,10 @@
 local M = {}
 local api = vim.api
 
+--:map j gg           (moves cursor to first line)
+--:map Q j            (moves cursor to first line)
+--:noremap W j        (moves cursor down one line)
+
 function M.map(type, input, output)
   api.nvim_set_keymap(type, input, output, {})
 end

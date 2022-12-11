@@ -1,10 +1,7 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspconfig = require("lspconfig")
-
-lspconfig.jedi_language_server.setup{
+require('lspconfig').jedi_language_server.setup {
   capabilities = capabilities
 }
-
 -- mason.nvim
 -- [
 --  sumneko_lua,

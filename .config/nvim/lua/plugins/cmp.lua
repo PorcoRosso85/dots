@@ -13,8 +13,14 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'buffer' },
     { name = 'vsnip' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'cmp_tabnine' },
+    { name = 'skkeleton' }
+  },
+  view = {
+    entries = 'native'
   },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -28,10 +34,15 @@ cmp.setup({
 --      ['<DOWN>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior })
   },
   formatting = {
-    format = lspkind.cmp_format({
-      with_text = true,
-      maxwidth = 50,
-      before = function(entry, vim_item)
+   format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function (entry, vim_item)
+        --...
         return vim_item
       end
     })
@@ -50,12 +61,12 @@ cmp.setup.filetype('gitcommit', {
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
+--cmp.setup.cmdline({ '/', '?' }, {
+--  mapping = cmp.mapping.preset.cmdline(),
+--  sources = {
+--    { name = 'buffer' }
+--  }
+--})
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 --cmp.setup.cmdline(':', {
@@ -66,10 +77,3 @@ cmp.setup.cmdline({ '/', '?' }, {
 --    { name = 'cmdline' }
 --  })
 --})
-
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
---require('lspconfig')['jedi-language-server'].setup {
---  capabilities = capabilities
---}
