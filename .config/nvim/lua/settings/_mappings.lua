@@ -1,5 +1,11 @@
 local utils = require("utils._set_mappings")
 
+-- where neovim where file location is
+utils.nnoremap("<leader>cd", "<cmd>lcd %:p:h|pwd<cr>")
+utils.nnoremap("<leader>cde", "<cmd>lcd %:p:h|pwd|e .<cr>")
+utils.nnoremap("<leader>cdp", "<cmd>lcd %:p:h|lcd ..|pwd<cr>")
+utils.nnoremap("<leader>cdpe", "<cmd>lcd %:p:h|lcd ..|pwd|e .<cr>")
+
 -- disable cross key
 utils.nnoremap("<Up>", "<nop>")
 utils.nnoremap("<Down>", "<nop>")
@@ -47,11 +53,22 @@ whichkey.register({
 
 
 -- buffer
-utils.nnoremap("<C-j>", "<cmd>:bnext<cr>")
-utils.nnoremap("<C-k>", "<cmd>:bnext<cr>")
+--utils.nnoremap("<C-j><C-j>", "<cmd>:bnext<cr>")
+--utils.nnoremap("<C-j><C-k>", "<cmd>:bprev<cr>")
+--utils.nnoremap("<C-j><C-d>", "<cmd>:bdelete<cr>")
+utils.nnoremap("<C-b><C-b>", "<cmd>:ls<cr>")
+utils.nnoremap("<C-b><C-n>", "<cmd>:bnext<cr>")
+utils.nnoremap("<C-b><C-d>", "<cmd>:bdelete<cr>")
+
 
 -- terminal
-utils.nnoremap("<leader>t", "<cmd>vs|exe 'resize ' . (winwidth(0)*2/3)|exe 'resize ' . (winheight(0)*2/1)|te<cr>")
+--utils.nnoremap("<leader>t", "<cmd>vs|exe 'resize ' . (winwidth(0)*2/3)|exe 'resize ' . (winheight(0)*2/1)|te<cr>")
+--map("n", "<C-t>", [[&bt ==# 'terminal' ? '<cmd>bdelete!<cr>' : '<cmd>split<bar>term<cr>']], {noremap = true, expr = true})
+--utils.nnoremap("<C-t>", "[[&bt ==# 'terminal' ? '<cmd>bdelete!<cr>' : '<cmd>split<bar>term<cr>']], {noremap = true, expr = true}")
+vim.api.nvim_create_autocmd({ 'TermOpen' }, {
+  pattern = '*',
+  command = 'startinsert',
+})
 utils.tnoremap("<C-W>n", "<cmd>new<cr>")
 utils.tnoremap("<C-W><C-N>", "<cmd>new<cr>")
 utils.tnoremap("<C-W>q", "<cmd>quit<cr>")
@@ -97,3 +114,11 @@ utils.tnoremap("<C-W>-", "<cmd>wincmd -<cr>")
 utils.tnoremap("<C-W>+", "<cmd>wincmd +<cr>")
 utils.tnoremap("<C-W>z", "<cmd>pclose<cr>")
 utils.tnoremap("<C-W><C-Z>", "<cmd>pclose<cr>")
+
+
+
+-- mkdir, if you haven't created directory
+utils.nnoremap("<leader>mkdir", "<cmd>!mkdir -p %:h<cr>")
+
+-- shortcut
+utils.nnoremap("<leader>qcsv", "<cmd>setfiletype csv|!csview %<cr>")

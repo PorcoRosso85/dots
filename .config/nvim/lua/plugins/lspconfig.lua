@@ -1,5 +1,20 @@
-local lspconfig = require'lspconfig'
-lspconfig.jedi_language_server.setup{}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require('lspconfig').jedi_language_server.setup {
+  capabilities = capabilities
+}
+
+require('lspconfig').tsserver.setup {
+}
+
+
+-- https://zenn.dev/botamotch/articles/21073d78bc68bf
+--
+-- reference highlight
+local utils = require("utils._set_mappings")
+utils.nnoremap("<S-k>", "<cmd>lua vim.lsp.buf.hover()<cr>")
+--utils.nnoremap("", "<cmd><cr>")
+--utils.nnoremap("", "<cmd><cr>")
+--utils.nnoremap("", "<cmd><cr>")
 
 --return function()
 --  local utils = require("utils._set_config")
@@ -11,7 +26,7 @@ lspconfig.jedi_language_server.setup{}
 --  vim.o.updatetime = 250
 --  vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 --
----- mapping
+--  -- mapping
 --  require("which-key").register({
 --    name = "lsp",
 --    ["<space>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show diagnostics in a floating window" },
@@ -24,15 +39,15 @@ lspconfig.jedi_language_server.setup{}
 --  })
 --
 --  local servers = {
---	  "denols",
---	  "gopls",
---    "jsonls",
---		"rust_analyzer",
---    "sumneko_lua",
---	  "tflint",
---	  "tsserver",
---	  "yamlls",
---	  "zls",
+--	  --"denols",
+--	  --"gopls",
+--    --"jsonls",
+--		--"rust_analyzer",
+--    --"sumneko_lua",
+--	  --"tflint",
+--	  --"tsserver",
+--	  --"yamlls",
+--	  --"zls",
 --    "jedi_python",
 --  }
 --
