@@ -2,6 +2,7 @@
 alias ls='ls -la'
 
 alias g='git'
+alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 #alias cdf='cd $(find . -maxdepth 3 -type d | fzf)'
 alias cdfm='cd $(find /mnt/c/Users/admin.DESKTOP-1PF4AT3/ -maxdepth 3 -type d | grep "Documents\|Downloads\|wsl" | fzf)'

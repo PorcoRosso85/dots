@@ -25,22 +25,14 @@ Plug("beauwilliams/focus.nvim", { config = function() conf("focus") end })
 Plug("akinsho/toggleterm.nvim", { config = function() conf("toggleterm") end })
 
 Plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
---Plug("nvim-telescope/telescope.nvim", { config = function() conf("telescope") end })
---  Plug("nvim-telescope/telescope-media-files.nvim", { config = function() conf("telescope") end })
+Plug("nvim-telescope/telescope.nvim", { config = function() conf("telescope") end })
+  Plug("nvim-telescope/telescope-media-files.nvim", { config = function() conf("telescope") end })
 
 
-Plug("terrortylor/nvim-comment", { config = function() conf("nvim_comment") end })
 
--- language server
---Plug("williamboman/mason.nvim", { config = function() conf("mason") end })
---  Plug("williamboman/mason-lspconfig.nvim", { config = function() conf("mason") end })
-Plug("neovim/nvim-lspconfig", { config = function() conf("lspconfig") end })
-  Plug("hrsh7th/cmp-nvim-lsp")
-  --Plug("RRethy/vim-illuminate")
-  Plug("onsails/lspkind.nvim", { config = function() conf("lspkind") end })
-
---Plug("jiangmiao/auto-pairs")
 Plug("mattn/emmet-vim", { config = function() conf("emmet") end })
+Plug("terrortylor/nvim-comment", { config = function() conf("nvim_comment") end })
+--Plug("jiangmiao/auto-pairs")
 
 Plug("hrsh7th/nvim-cmp", { config = function() conf("cmp") end })
   Plug "hrsh7th/cmp-nvim-lsp"
@@ -59,6 +51,16 @@ Plug "hrsh7th/vim-vsnip"
 -- For luasnip users.
 Plug "L3MON4D3/LuaSnip"
 Plug "saadparwaiz1/cmp_luasnip"
+
+-- language server
+--Plug("williamboman/mason.nvim", { config = function() conf("mason") end })
+--  Plug("williamboman/mason-lspconfig.nvim", { config = function() conf("mason") end })
+Plug("neovim/nvim-lspconfig", { config = function() conf("lspconfig") end })
+  Plug("hrsh7th/cmp-nvim-lsp")
+  --Plug("RRethy/vim-illuminate")
+  Plug("onsails/lspkind.nvim", { config = function() conf("lspkind") end })
+
+Plug("jose-elias-alvarez/null-ls.nvim", { config = function() conf("nullls") end })
 
 -- If use copilot
 -- Plug "zbirenbaum/copilot.lua"

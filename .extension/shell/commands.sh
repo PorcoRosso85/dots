@@ -29,3 +29,7 @@ source venv/bin/activate
 source .zshrc
 apt clean && apt update
 nvim /root/.profile_common
+ansible-playbook -i inventory.yml playbook.yml -vvvv
+aws cloudformation create-stack --stack-name
+aws cloudformation create-stack --stack-name vpc --template-body file:///root/projects/aws_python/01_create_vpc.yaml
+aws cloudformation create-stack --stack-name vpc --template-body file:///root/projects/aws_python/01_create_vpc.yaml

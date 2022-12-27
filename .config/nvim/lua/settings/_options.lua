@@ -21,7 +21,9 @@ vim.opt.swapfile = false
 vim.opt.virtualedit = "onemore"
 vim.opt.splitright = true
 
---wsl copy/paste
+--wsl copy/paste, https://mitchellt.com/2022/05/15/WSL-Neovim-Lua-and-the-Windows-Clipboard.html
+--if not work clip.exe, https://github.com/microsoft/WSL/issues/5779
+-- we have to edit /etc/profile
 in_wsl = os.getenv('WSL_DISTRO_NAME') ~= nil
 if in_wsl then
     vim.g.clipboard = {
@@ -59,17 +61,3 @@ end
 
 -- quickfix
 vim.cmd 'autocmd QuickfixCmdPost vimgrep call OpenQuickfixWindow()'
-
---vim.g.rcsv_colorpairs = "[['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]"
---vim.cmd "let g:rcsv_colorpairs = [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]"
-
--- Japanese Input
--- https://www.regentechlog.com/2022/06/30/control-ime-by-vim/
---vim.cmd([[
---augroup restore-ime
---  autocmd!
---  autocmd InsertEnter * silent call chansend(v:stderr, "\e[<r")
---  autocmd InsertLeave * silent call chansend(v:stderr, "\e[<s\e[<0t")
---  autocmd VimLeave * silent call chansend(v:stderr, "\e[<0t\e[<s")
---augroup end
---]])
