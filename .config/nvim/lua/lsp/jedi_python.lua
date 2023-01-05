@@ -1,5 +1,11 @@
-local lspconfig = require('lspconfig')
-lspconfig.jedi_language_server.setup{}
+local utils = require("utils._set_mappings")
+local lspconfig = require("lspconfig")
+local cmp = require("cmp_nvim_lsp")
+local capabilities = cmp.default_capabilities()
+require("lspconfig")["jedi_language_server"].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 
 --if vim.fn.exepath('jedi_python') ~= '' then
 --  local lspconfig = require("lspconfig")

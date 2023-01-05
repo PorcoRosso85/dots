@@ -5,6 +5,5 @@ apt install -y && \
   wget && \
   git && \
   pip && \
-  #jq
-  fd-find
-
+  fd-find && \
+  bat && \

@@ -59,5 +59,8 @@ end
 --          \   'cache_enabled': 0,
 --          \ }
 
+vim.g["virtualenv#python"] = os.getenv("VIRTUAL_ENV")
+
+
 -- quickfix
 vim.cmd 'autocmd QuickfixCmdPost vimgrep call OpenQuickfixWindow()'

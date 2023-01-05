@@ -1,8 +1,14 @@
---local null_ls = require("null-ls")
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.cfn_lint
+  }
+})
+
+
+---- https://www.reddit.com/r/neovim/comments/p9wjg3/cloudformation_with_nvim_lsp/
 --local null_helpers = require("null-ls.helpers")
 --
---
----- https://www.reddit.com/r/neovim/comments/p9wjg3/cloudformation_with_nvim_lsp/
 --local cfn_lint = {
 --  method = null_ls.methods.DIAGNOSTICS,
 --  filetypes = {'yaml'},

@@ -1,5 +1,7 @@
 -- https://github.com/ibhagwan/fzf-lua
 local utils = require("utils._set_mappings")
+utils.nnoremap("<leader>fc", "<cmd>lua require('fzf-lua').commands()<cr>") 
+utils.nnoremap("<leader>fk", "<cmd>lua require('fzf-lua').keymaps()<cr>") 
 utils.nnoremap("<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>") 
 --utils.nnoremap("<leader>ffc", "<cmd>lcd %:p:h|lua require('fzf-lua').files()<cr>") 
 utils.nnoremap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<cr>") 

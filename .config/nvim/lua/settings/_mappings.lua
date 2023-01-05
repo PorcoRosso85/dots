@@ -17,36 +17,36 @@ utils.vnoremap("<Left>", "<nop>")
 utils.vnoremap("<Right>", "<nop>")
 
 -- whichkey for default command
-local whichkey = require("which-key")
-whichkey.setup()
-
--- :h ins-completion
-whichkey.register({
-  ["<C-l>"] = 'Whole lines',
-  ["<C-n>"] = 'keywords in the current file',
-  ["<C-k>"] = 'keywords in dictionary',
-  ["<C-t>"] = 'keywords in thesaurus',
-  ["<C-i>"] = 'keywords in the current and included files',
-  ["<C-]>"] = 'tags',
-  ["<C-f>"] = 'file names',
-  ["<C-d>"] = 'definitions or macros',
-  ["<C-v>"] = 'Vim command-line',
-  ["<C-u>"] = 'User defined completion',
-  ["<C-o>"] = 'omni completion',
-  ["<C-s>"] = 'Spelling suggestions',
-  ["<C-z>"] = 'stop completion',
-}, {
-  mode = "i",
-  prefix = "<C-x>",
-})
-
--- easy snipet
-whichkey.register({
---  ["init"] = { "<cmd>vim.cmd('e ~/.config/nvim/')<cr>" }
-},
-{ prefix = "<leader>" }
-)
-
+-- local whichkey = require("which-key")
+-- whichkey.setup()
+--
+-- -- :h ins-completion
+-- whichkey.register({
+--   ["<C-l>"] = 'Whole lines',
+--   ["<C-n>"] = 'keywords in the current file',
+--   ["<C-k>"] = 'keywords in dictionary',
+--   ["<C-t>"] = 'keywords in thesaurus',
+--   ["<C-i>"] = 'keywords in the current and included files',
+--   ["<C-]>"] = 'tags',
+--   ["<C-f>"] = 'file names',
+--   ["<C-d>"] = 'definitions or macros',
+--   ["<C-v>"] = 'Vim command-line',
+--   ["<C-u>"] = 'User defined completion',
+--   ["<C-o>"] = 'omni completion',
+--   ["<C-s>"] = 'Spelling suggestions',
+--   ["<C-z>"] = 'stop completion',
+-- }, {
+--   mode = "i",
+--   prefix = "<C-x>",
+-- })
+--
+-- -- easy snipet
+-- whichkey.register({
+-- --  ["init"] = { "<cmd>vim.cmd('e ~/.config/nvim/')<cr>" }
+-- },
+-- { prefix = "<leader>" }
+-- )
+--
 
 -- quickfix
 -- utils.nnoremap("<leader>qf", "<nop>")
@@ -56,9 +56,9 @@ whichkey.register({
 --utils.nnoremap("<C-j><C-j>", "<cmd>:bnext<cr>")
 --utils.nnoremap("<C-j><C-k>", "<cmd>:bprev<cr>")
 --utils.nnoremap("<C-j><C-d>", "<cmd>:bdelete<cr>")
-utils.nnoremap("<C-b><C-b>", "<cmd>:ls<cr>")
-utils.nnoremap("<C-b><C-n>", "<cmd>:bnext<cr>")
-utils.nnoremap("<C-b><C-d>", "<cmd>:bdelete<cr>")
+utils.nnoremap("<C-j><C-b><C-b>", "<cmd>:ls<cr>")
+utils.nnoremap("<C-j><C-b><C-n>", "<cmd>:bnext<cr>")
+utils.nnoremap("<C-j><C-b><C-d>", "<cmd>:bdelete<cr>")
 
 
 -- terminal

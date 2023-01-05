@@ -26,10 +26,18 @@ docker exec -it
 docker run -ti --rm -v ~/.ssh:/root/.ssh -v ~/.aws:/root/.aws -v $(pwd):/apps -w /apps alpine/ansible ansible-playbook
 python3 -m venv venv
 source venv/bin/activate
-source .zshrc
+source /root/.zshrc
 apt clean && apt update
 nvim /root/.profile_common
 ansible-playbook -i inventory.yml playbook.yml -vvvv
 aws cloudformation create-stack --stack-name
-aws cloudformation create-stack --stack-name vpc --template-body file:///root/projects/aws_python/01_create_vpc.yaml
-aws cloudformation create-stack --stack-name vpc --template-body file:///root/projects/aws_python/01_create_vpc.yaml
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+exercism submit 
+python -m pytest 
+fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'
+aws cloudformation delete-stack --stack-name ${STACK_NAME}
+aws cloudformation create-stack --stack-name $STACK_NAME --template-body $VPC_TEMPLATE_PATH
+aws cloudformation validate-template --template-body $VPC_TEMPLATE_PATH
+docker container commit
