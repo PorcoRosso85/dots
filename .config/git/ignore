@@ -4,3 +4,4 @@
 /database/
 /pgdata/
 env/
+venv/

@@ -5,12 +5,12 @@ function M.map(type, input, output)
   api.nvim_set_keymap(type, input, output, {})
 end
 
-function M.noremap(type, input, output)
-  api.nvim_set_keymap(type, input, output, { noremap = true, silent = true })
-end
-
 function M.remap(type, input, output)
   api.nvim_set_keymap(type, input, output, { noremap = false, silent = true })
+end
+
+function M.noremap(type, input, output)
+  api.nvim_set_keymap(type, input, output, { noremap = true, silent = true })
 end
 
 function M.nmap(input, output)

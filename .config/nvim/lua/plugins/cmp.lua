@@ -1,26 +1,33 @@
--- vim.opt.completeopt=menu,menuone,noselect 
 
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local devicons = require('nvim-web-devicons')
 
 cmp.setup({
-  -- enabled = function()
-  --   local context = require("cmp.config.context")
-  --   if vim.api.nvim_get_mode().mode == 'c' then
-  --     return true
-  --   else
-  --     return not context.in_syntax_group("Comment")
-  --     -- https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques
-  --     --  and nocontext.in_treesitter_captre("comment")
-  --   end
-  --
-  --   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  --   cmp.event:on(
-  --     'confirm_done',
-  --     cmp_autopairs.on_confirm_done()
-  --   )
-  -- end,
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  enabled = function()
+    local context = require("cmp.config.context")
+    if vim.api.nvim_get_mode().mode == 'c' then
+      return true
+    else
+      return not context.in_syntax_group("Comment")
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques
+      --  and nocontext.in_treesitter_captre("comment")
+    end
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    cmp.event:on(
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
+    )
+  end,
   style = {
     winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
   },
@@ -50,12 +57,14 @@ cmp.setup({
      if vim.tbl_contains({ 'path' }, entry.source.name) then
        local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
        if icon then
+         -- https://www.youtube.com/watch?v=24GROqToVLw
+         -- vim_item.kind = icon .. vim_item.kind
          vim_item.kind = icon
          vim_item.kind_hl_group = hl_group
          return vim_item
        end
      end
-     return lspkind.cmp_format({ with_text = false })(entry, vim_item)
+     return lspkind.cmp_format({ with_text = true })(entry, vim_item)
     end
   },
   experimental = {
@@ -67,7 +76,7 @@ cmp.setup({
     -- documentation = cmp.config.window.bordered(),
     completion = {
       border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      scrollbar = "║",
+      scrollbar = "│",
       winhighlight = 'Normal:CmpMenu,FloatBorder:CmpMenuBorder,CursorLine:CmpSelection,Search:None',
       autocomplete = {
         require("cmp.types").cmp.TriggerEvent.InsertEnter,
@@ -83,50 +92,41 @@ cmp.setup({
   view = {
     entries = "native"
   },
-  sorting = {
-    --keep priority weight at 2 for much closer matches to appear above copilot
-    --set to 1 to make copilot always appear on top
-    priority_weight = 1,
-    comparators = {
-      -- order matters here
-      cmp.config.compare.exact,
-      has_copilot and copilot_cmp.prioritize or nil,
-      has_copilot and copilot_cmp.score or nil,
-      cmp.config.compare.offset,
-      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      cmp.config.compare.locality,
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
-      -- personal settings:
-      -- cmp.config.compare.recently_used,
-      -- cmp.config.compare.offset,
-      -- cmp.config.compare.score,
-      -- cmp.config.compare.sort_text,
-      -- cmp.config.compare.length,
-      -- cmp.config.compare.order,
-    },
-  },
-  -- snippet = {
-  --   -- REQUIRED - you must specify a snippet engine
-  --   expand = function(args)
-  --     -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-  --     -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-  --     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-  --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-  --   end,
+  -- sorting = {
+  --   --keep priority weight at 2 for much closer matches to appear above copilot
+  --   --set to 1 to make copilot always appear on top
+  --   priority_weight = 1,
+  --   comparators = {
+  --     -- order matters here
+  --     cmp.config.compare.exact,
+  --     has_copilot and copilot_cmp.prioritize or nil,
+  --     has_copilot and copilot_cmp.score or nil,
+  --     cmp.config.compare.offset,
+  --     -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+  --     cmp.config.compare.score,
+  --     cmp.config.compare.recently_used,
+  --     cmp.config.compare.locality,
+  --     cmp.config.compare.kind,
+  --     cmp.config.compare.sort_text,
+  --     cmp.config.compare.length,
+  --     cmp.config.compare.order,
+  --     -- personal settings:
+  --     cmp.config.compare.recently_used,
+  --     cmp.config.compare.offset,
+  --     cmp.config.compare.score,
+  --     cmp.config.compare.sort_text,
+  --     cmp.config.compare.length,
+  --     cmp.config.compare.order,
+  --   },
   -- },
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "vsnip" },
+    -- { name = "vsnip" },
     { name = "path" },
     { name = "cmp_tabnine" },
     { name = "skkeleton" },
-    { name = "copilot", group_index = 2 },
+    { name = "copilot" },
   }, {
     -- { name = "buffer" , option = { keyword_pattern = [[\k\+]], }},
     -- { name = "cmdline" },
@@ -136,16 +136,28 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<C-l>"] = cmp.mapping.complete(),
+    -- ["<C-l>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<C-CR>"] = cmp.mapping.confirm({ select = true }),
 --      ["<UP>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior }),
 --      ["<DOWN>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior })
+    ["<C-l>"] = cmp.mapping.complete({
+      config = {
+        sources = {
+          { name = "" },
+          { name = "" },
+        }
+      }
+    }),
   },
-  preselect = cmp.PreselectMode.Item,
+  -- preselect = cmp.PreselectMode.Item,
+  preselect = cmp.PreselectMode.None
 })
 
+-- https://www.reddit.com/r/neovim/comments/q66d1p/completeopt_not_being_respected/, https://github.com/hrsh7th/nvim-cmp/issues/194
+-- vim.opt.completeopt=menu,menuone,noselect 
+--
 -- --set max height of items
 -- vim.cmd([[ set pumheight=6 ]])
 -- --set highlights
@@ -226,6 +238,10 @@ require("copilot_cmp").setup {
     preview = require("copilot_cmp.format").deindent,
   },
 }
+-- https://github.com/zbirenbaum/copilot.lua#suggestion
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)
 
 -- cmp.setup.cmdline('/', {
 --   mapping = cmp.mapping.preset.cmdline(),
@@ -248,25 +264,24 @@ require("copilot_cmp").setup {
 --   })
 -- })
 --
-
-emmet_ls = function() 
-  local lspconfig = require('lspconfig')
-  local configs = require('lspconfig/configs')
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-  lspconfig.emmet_ls.setup({
-      -- on_attach = on_attach,
-      capabilities = capabilities,
-      filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
-      init_options = {
-        html = {
-          options = {
-            -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-            ["bem.enabled"] = true,
-          },
-        },
-      }
-  })
-end
-emmet_ls()
+-- emmet_ls = function() 
+--   local lspconfig = require('lspconfig')
+--   local configs = require('lspconfig/configs')
+--   local capabilities = vim.lsp.protocol.make_client_capabilities()
+--   capabilities.textDocument.completion.completionItem.snippetSupport = true
+--
+--   lspconfig.emmet_ls.setup({
+--       -- on_attach = on_attach,
+--       capabilities = capabilities,
+--       filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+--       init_options = {
+--         html = {
+--           options = {
+--             -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+--             ["bem.enabled"] = true,
+--           },
+--         },
+--       }
+--   })
+-- end
+-- emmet_ls()

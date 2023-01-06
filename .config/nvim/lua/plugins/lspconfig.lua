@@ -2,16 +2,13 @@ local utils = require("utils._set_mappings")
 local lspconfig = require("lspconfig")
 local cmp = require("cmp_nvim_lsp")
 local capabilities = cmp.default_capabilities()
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 50,
+}
 
---require("lspconfig").jedi_language_server.setup {
---  capabilities = capabilities
---}
-
-
-
-
--- https://zenn.dev/botamotch/articles/21073d78bc68bf
-
+-- https://github.com/neovim/nvim-lspconfig
+-- ref https://zenn.dev/botamotch/articles/21073d78bc68bf
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -42,20 +39,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
--- require("lspconfig")["jedi_language_server"].setup{
---     on_attach = on_attach,
---     flags = lsp_flags,
--- }
-require("lspconfig")["tsserver"].setup{
+lspconfig["jedi_language_server"].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
-require("lspconfig")["rust_analyzer"].setup{
+lspconfig["tsserver"].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+lspconfig["rust_analyzer"].setup{
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
@@ -63,7 +55,12 @@ require("lspconfig")["rust_analyzer"].setup{
       ["rust-analyzer"] = {}
     }
 }
---require("lspconfig")["yamlls"].setup{
+lspconfig["sumneko_lua"].setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+
+--lspconfig["yamlls"].setup{
 lspconfig.yamlls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
@@ -95,31 +92,31 @@ lspconfig.emmet_ls.setup({
 })
 
 
-return function()
-  local utils = require("utils._set_config")
-  local conf_lsp = utils.conf_lsp
-
-  vim.diagnostic.config({
-    virtual_text = false,
-  })
-  vim.o.updatetime = 250
-  vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
-
-  -- mapping
-  local servers = {
-	  --"denols",
-	  --"gopls",
-    --"jsonls",
-		--"rust_analyzer",
-    --"sumneko_lua",
-	  --"tflint",
-	  --"tsserver",
-	  --"yamlls",
-	  --"zls",
-    "jedi_python",
-  }
-
-  for _, lsp in ipairs(servers) do
-    conf_lsp(lsp)
-  end
-end
+-- return function()
+--   local utils = require("utils._set_config")
+--   local conf_lsp = utils.conf_lsp
+--
+--   vim.diagnostic.config({
+--     virtual_text = false,
+--   })
+--   vim.o.updatetime = 250
+--   vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+--
+--   -- mapping
+--   local servers = {
+-- 	  --"denols",
+-- 	  --"gopls",
+--     --"jsonls",
+-- 		--"rust_analyzer",
+--     --"sumneko_lua",
+-- 	  --"tflint",
+-- 	  --"tsserver",
+-- 	  --"yamlls",
+-- 	  --"zls",
+--     "jedi_python",
+--   }
+--
+--   for _, lsp in ipairs(servers) do
+--     conf_lsp(lsp)
+--   end
+-- end

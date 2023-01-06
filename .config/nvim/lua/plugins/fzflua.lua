@@ -1,11 +1,23 @@
 -- https://github.com/ibhagwan/fzf-lua
 local utils = require("utils._set_mappings")
-utils.nnoremap("<leader>fc", "<cmd>lua require('fzf-lua').commands()<cr>") 
-utils.nnoremap("<leader>fk", "<cmd>lua require('fzf-lua').keymaps()<cr>") 
-utils.nnoremap("<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>") 
+-- utils.nnoremap("<leader>ffz", "<cmd>lua require('fzf-lua').builtin()<cr>") 
+vim.api.nvim_create_user_command('FFZ',"lua require('fzf-lua').builtin()", {}) 
+-- vim.api.nvim_add_user_command(
+--     'Upper',
+--     function(opts)
+--         print(string.upper(opts.args))
+--     end,
+--     { nargs = 1 }
+-- )
+-- utils.nnoremap("<leader>ffc", "<cmd>lua require('fzf-lua').commands()<cr>") 
+-- utils.nnoremap("<leader>ffk", "<cmd>lua require('fzf-lua').keymaps()<cr>") 
+-- utils.nnoremap("<leader>ffm", "<cmd>lua require('fzf-lua').menus()<cr>") 
+-- utils.nnoremap("<leader>ffp", "<cmd>lua require('fzf-lua').packadd()<cr>") 
+
+utils.nnoremap("<leader>fff", "<cmd>lua require('fzf-lua').files()<cr>") 
 --utils.nnoremap("<leader>ffc", "<cmd>lcd %:p:h|lua require('fzf-lua').files()<cr>") 
-utils.nnoremap("<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<cr>") 
-utils.nnoremap("<leader>fb", "<cmd>lua require('fzf-lua').buffers()<cr>") 
+utils.nnoremap("<leader>ffo", "<cmd>lua require('fzf-lua').oldfiles()<cr>") 
+utils.nnoremap("<leader>ffb", "<cmd>lua require('fzf-lua').buffers()<cr>") 
 --utils.nnoremap("<leader>fl", "<cmd>lua require('fzf-lua').loclist()<cr>") 
 utils.nnoremap("<leader>fp", "<cmd>lua require('fzf-lua').files({ cmd='find ..' })<cr>") 
 utils.nnoremap("<leader>fpp", "<cmd>lua require('fzf-lua').files({ cmd='find ../..' })<cr>") 

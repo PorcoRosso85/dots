@@ -5,7 +5,7 @@ local Plug = require("utils._set_vimplug")
 Plug.begin(vim.fn.stdpath("data").. "/plugged")
 
 Plug("michaelb/sniprun", { config = function() conf("sniprun") end })
-Plug("ThePrimeagen/refactoring.nvim", { config = function() conf("refactoring") end })
+Plug("andrewferrier/debugprint.nvim", { config = function() conf("debugprint") end })
 -- Plug("tpope/vim-dispatch")
 -- Plug("rmagatti/auto-session", { config = function() conf("auto_session") end })
 -- Plug("natecraddock/workspaces.nvim", { config = function() conf("workspaces_sessions") end })
@@ -45,11 +45,10 @@ Plug("hrsh7th/nvim-cmp", { config = function() conf("cmp") end })
   Plug "hrsh7th/cmp-cmdline"
   Plug("rinx/cmp-skkeleton")
   Plug("zbirenbaum/copilot-cmp", { config = function() conf("cmp") end })
-
-Plug("tzachar/cmp-tabnine", {
-  --["do"] = "./install.sh", 
-  config = function() conf("tabnine") end
-})
+  Plug("tzachar/cmp-tabnine", {
+    --["do"] = "./install.sh", 
+    config = function() conf("tabnine") end
+  })
 
 -- For vsnip users.
 Plug "hrsh7th/cmp-vsnip"
@@ -66,12 +65,8 @@ Plug("neovim/nvim-lspconfig", { config = function() conf("lspconfig") end })
   -- Plug("glepnir/lspsaga.nvim", { config = function() conf("lspsaga") end })
 
 Plug("jose-elias-alvarez/null-ls.nvim", { config = function() conf("nullls") end })
-
 Plug("zbirenbaum/copilot.lua", { config = function() conf("copilot") end })
 
--- If use copilot
--- Plug "zbirenbaum/copilot.lua"
---   Plug "zbirenbaum/copilot-cmp"
 
 --Plug "mechatroner/rainbow_csv"
 Plug("chrisbra/csv.vim", { config = function() conf("csvvim") end })

@@ -1,14 +1,11 @@
-# stating
+# staging
 git status --ignored
 git rm -r [files]
 
 git reset HEAD^
 
 # committing
-
-git reset --soft __
-
-source ~/.bashrc
+git reset --soft [destination]
 
 python3.11 -m pip
 
@@ -41,3 +38,4 @@ aws cloudformation delete-stack --stack-name ${STACK_NAME}
 aws cloudformation create-stack --stack-name $STACK_NAME --template-body $VPC_TEMPLATE_PATH
 aws cloudformation validate-template --template-body $VPC_TEMPLATE_PATH
 docker container commit
+git clone -b [branch]

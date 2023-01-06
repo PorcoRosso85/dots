@@ -2,6 +2,7 @@ local utils = require("utils._set_mappings")
 local lspconfig = require("lspconfig")
 local cmp = require("cmp_nvim_lsp")
 local capabilities = cmp.default_capabilities()
+
 require("lspconfig")["jedi_language_server"].setup{
     on_attach = on_attach,
     flags = lsp_flags,
