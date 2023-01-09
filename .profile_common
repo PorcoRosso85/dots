@@ -1,4 +1,12 @@
 export EDITOR=nvim
+source $HOME/.env
+
+# PATH backups 230106
+# /root/.dvm/bin:/root/.nvm/versions/node/v19.3.0/bin:/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files/WezTerm:/mnt/c/Users/admin.DESKTOP-1PF4AT3/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/admin.DESKTOP-1PF4AT3/AppData/Local/Programs/Microsoft VS Code/bin:/root/.local/bin:/root/.fzf/bin:/root/.local/bin
+# 
+# 
+# for session
+# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # [alias]
 alias ls='ls -la'

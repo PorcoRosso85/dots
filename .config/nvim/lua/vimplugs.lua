@@ -25,7 +25,7 @@ Plug("beauwilliams/focus.nvim", { config = function() conf("focus") end })
 Plug("akinsho/toggleterm.nvim", { config = function() conf("toggleterm") end })
 
 Plug("ibhagwan/fzf-lua", { config = function() conf("fzflua") end })
--- Plug("nvim-telescope/telescope.nvim", { config = function() conf("telescope") end })
+Plug("nvim-telescope/telescope.nvim", { config = function() conf("telescope") end })
 --   Plug("nvim-telescope/telescope-media-files.nvim", { config = function() conf("telescope") end })
 
 Plug("mfussenegger/nvim-dap", { config = function() conf("dap") end })
@@ -66,6 +66,8 @@ Plug("neovim/nvim-lspconfig", { config = function() conf("lspconfig") end })
 
 Plug("jose-elias-alvarez/null-ls.nvim", { config = function() conf("nullls") end })
 Plug("zbirenbaum/copilot.lua", { config = function() conf("copilot") end })
+Plug("MunifTanjim/nui.nvim") --, { config = function() conf("nui") end })
+  Plug("jackMort/ChatGPT.nvim", { config = function() conf("chatgpt") end })
 
 
 --Plug "mechatroner/rainbow_csv"

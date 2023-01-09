@@ -4,6 +4,8 @@ require("settings._mappings")
 require("settings._options")
 require("settings._provider")
 
+-- vim.cmd('source $HOME/.config/nvim/openai_js.vim')
+
 --local ok, reload = pcall(require, "plenary.reload")
 --RELOAD = ok and reload.reload_module or function(...)
 --  return ...

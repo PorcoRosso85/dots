@@ -1,7 +1,9 @@
 -- https://github.com/ibhagwan/fzf-lua
 local utils = require("utils._set_mappings")
--- utils.nnoremap("<leader>ffz", "<cmd>lua require('fzf-lua').builtin()<cr>") 
+utils.nnoremap("<C-j><C-f>", "<cmd>lua require('fzf-lua').builtin()<cr>") 
 vim.api.nvim_create_user_command('FFZ',"lua require('fzf-lua').builtin()", {}) 
+utils.nnoremap("<C-j><C-f>c", "<cmd>lua require('fzf-lua').builtin( { query = 'command' } )<cr>") 
+utils.nnoremap("<C-j><C-f><C-k>", "<cmd>lua require('fzf-lua').builtin( { query = 'keymap' } )<cr>") 
 -- vim.api.nvim_add_user_command(
 --     'Upper',
 --     function(opts)

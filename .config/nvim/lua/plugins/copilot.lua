@@ -51,16 +51,9 @@ require('copilot').setup({
 })
 
 
-utils.nnoremap("<C-j>copilotpanelaccept", '<cmd>lua require("copilot.panel").accept()<cr>')
-vim.api.nvim_create_user_command("CopilotPanelAccept", 'lua require("copilot.panel").accept()', {})
 -- utils.nnoremap("<C-j>copilotpanelnext", '<cmd>lua require("copilot.panel").jump_next()<cr>')
 -- utils.nnoremap("<C-j>copilotpanelprev", '<cmd>lua require("copilot.panel").jump_prev()<cr>')
-utils.nnoremap("<C-j>copilotpanelopen", '<cmd>lua require("copilot.panel").open()<cr>')
-utils.nnoremap("<C-j>copilotpanelrefresh", '<cmd>lua require("copilot.panel").refresh()<cr>')
+vim.api.nvim_create_user_command("CopilotPanelOpen", 'lua require("copilot.panel").open()', {})
 
-utils.nnoremap("<C-j>copilotsuggestionvisible", '<cmd>lua require("copilot.suggestion").is_visible()<cr>')
--- utils.nnoremap("<C-j>copilotsuggestionaccept", '<cmd>lua require("copilot.suggestion").accept()<cr>')
--- utils.nnoremap("<C-j>copilotsuggestionnext", '<cmd>lua require("copilot.suggestion").next()<cr>')
--- utils.nnoremap("<C-j>copilotsuggestionprev", '<cmd>lua require("copilot.suggestion").prev()<cr>')
--- utils.nnoremap("<C-j>copilotsuggestiondismiss", '<cmd>lua require("copilot.suggestion").dismiss()<cr>')
+vim.api.nvim_create_user_command("CopilotSuggestionVisible", 'lua require("copilot.suggestion").is_visible()', {})
 utils.nnoremap("<C-j>copilotsuggestiontoggleauto", '<cmd>lua require("copilot.suggestion").toggle_auto_trigger()<cr>')

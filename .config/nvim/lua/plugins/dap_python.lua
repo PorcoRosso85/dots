@@ -1,8 +1,6 @@
 -- https://zenn.dev/kawat/articles/51f9cc1f0f0aa9
-local venv = os.getenv('VIRTUAL_ENV') -- 環境変数が取得できる
+local venv = os.getenv('VIRTUAL_ENV')
 command = string.format('%s/bin/python', venv)
--- print(os.getenv("HOME"))
--- print(command)
 
 require('dap-python').setup(command)
 -- lua require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
