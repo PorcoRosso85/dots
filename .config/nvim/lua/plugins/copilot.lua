@@ -2,20 +2,20 @@ local utils = require("utils._set_mappings")
 
 require('copilot').setup({
   panel = {
-    enabled = true,
+    enabled = false,
     auto_refresh = false,
     keymap = {
       jump_prev = "[[",
       jump_next = "]]",
-      accept = "<CR>",
+      accept = "<M-CR>",
       refresh = "gr",
       open = "<M-CR>"
     },
   },
   suggestion = {
     enabled = true,
-    auto_trigger = true,
-    debounce = 75,
+    auto_trigger = false,
+    debounce = 150,
     keymap = {
       accept = "<M-CR>",
       accept_word = false,

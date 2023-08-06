@@ -1,5 +1,4 @@
--- https://zenn.dev/kawat/articles/51f9cc1f0f0aa9
-local venv = os.getenv('VIRTUAL_ENV')
+venv = os.getenv('VIRTUAL_ENV')
 command = string.format('%s/bin/python', venv)
 
 require('dap-python').setup(command)

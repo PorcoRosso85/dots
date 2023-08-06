@@ -2,11 +2,11 @@ vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl
 vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
 
 local utils = require("utils._set_mappings")
-utils.nnoremap("<C-j><C-d><C-b>", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-utils.nnoremap("<C-j><C-d><C-j>", "<cmd>lua require'dap'.continue()<cr>")
-utils.nnoremap("<C-j><C-d><C-s><C-o>", "<cmd>lua require'dap'.step_over()<cr>")
-utils.nnoremap("<C-j><C-d><C-s><C-i>", "<cmd>lua require'dap'.step_into()<cr>")
-utils.nnoremap("<C-j><C-d><C-r>", "<cmd>lua require'dap'.repl.open()<cr>")
+utils.nnoremap("<C-j>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+utils.nnoremap("<C-j>dj", "<cmd>lua require'dap'.continue()<cr>")
+utils.nnoremap("<C-j>ds", "<cmd>lua require'dap'.step_over()<cr>")
+utils.nnoremap("<C-j>dS", "<cmd>lua require'dap'.step_into()<cr>")
+utils.nnoremap("<C-j>dr", "<cmd>lua require'dap'.repl.open()<cr>")
 
 -- https://alpha2phi.medium.com/neovim-for-beginners-debugging-using-dap-44626a767f57
 

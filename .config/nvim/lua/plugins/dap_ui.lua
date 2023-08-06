@@ -1,14 +1,20 @@
+local utils = require("utils._set_mappings")
+local prefix = "<C-j>d"
 local dap = require("dap")
-local ui = require("dapui")
-vim.api.nvim_set_keymap('n', '<leader>dapui', ':lua require("dapui").toggle()<CR>', {})
 
--- https://qiita.com/aratana_tamutomo/items/7397b037e912d84d33b7
-dap.listeners.before['event_initialized']['custom'] = function(session, body)
-  require'dapui'.open()
-end
-dap.listeners.before['event_terminated']['custom'] = function(session, body)
-  require'dapui'.close()
-end
+utils.nnoremap(prefix.."uj", "<cmd>lua require('dapui').toggle()<cr>")
+utils.nnoremap(prefix.."uev", "<cmd>lua require('dapui').eval()<cr>")
+-- dap.listeners.before['event_initialized']['custom'] = function(session, body)
+--   require'dapui'.open()
+-- end
+-- dap.listeners.before['event_terminated']['custom'] = function(session, body)
+--   require'dapui'.close()
+-- end
+--
+-- require("dapui").float_element(<element ID>, <optional settings>)
+-- require("dapui").eval(<expression>)
+utils.nnoremap(prefix.."uw", "<cmd>lua require('dapui').float_element('watchs')<cr>")
+utils.nnoremap(prefix.."us", "<cmd>lua require('dapui').float_element('scopes')<cr>")
 
 require("dapui").setup({
   icons = { expanded = "", collapsed = "", current_frame = "" },

@@ -5,9 +5,12 @@ require("focus").setup({
   --  enable = true,
   --  width = 100
   --},
-  winhighlight = true,
-  number = true,
-  hybridnumber = true
+  winhighlight = false,
+  number = false,
+  hybridnumber = true,
 })
 
 --utils.nnoremap("<leader>wn", ":FocusSplitNicely<cr>")
+--
+-- vim.cmd("hi link UnfocusedWindow Normal")
+-- vim.cmd("hi link FocusedWindow Normal")

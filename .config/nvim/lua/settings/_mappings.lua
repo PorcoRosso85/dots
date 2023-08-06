@@ -53,12 +53,13 @@ utils.vnoremap("<Right>", "<nop>")
 
 
 -- buffer
+local buffer_prefix = "<C-j>b"
 --utils.nnoremap("<C-j><C-j>", "<cmd>:bnext<cr>")
 --utils.nnoremap("<C-j><C-k>", "<cmd>:bprev<cr>")
 --utils.nnoremap("<C-j><C-d>", "<cmd>:bdelete<cr>")
-utils.nnoremap("<C-j><C-b><C-b>", "<cmd>:ls<cr>")
-utils.nnoremap("<C-j><C-b><C-n>", "<cmd>:bnext<cr>")
-utils.nnoremap("<C-j><C-b><C-d>", "<cmd>:bdelete<cr>")
+utils.nnoremap(buffer_prefix.."b", "<cmd>:ls<cr>")
+utils.nnoremap(buffer_prefix.."n", "<cmd>:bnext<cr>")
+utils.nnoremap(buffer_prefix.."d", "<cmd>:bdelete<cr>")
 
 
 -- terminal

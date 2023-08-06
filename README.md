@@ -85,3 +85,8 @@ config config status.showUntrackedFiles no
 
 ### reference
 https://www.atlassian.com/git/tutorials/dotfiles
+
+May, 5th, 2023
+NixOsがWSLに導入できない現状
+WSLデフォルトのUbuntuにVSCからリモート中
+Ubuntuを整備するためのdotsがここにある

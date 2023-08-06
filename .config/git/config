@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-#	name = root
-#	email = root@DESKTOP-1PF4AT3.localdomain
+name = PorcoRosso85
+email = 1.is.universe@gmail.com
 
 [alias]
   cfg = config --global --edit

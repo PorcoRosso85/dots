@@ -1,3 +1,6 @@
+-- create global variable "prefix"
+prefix = "<C-j>"
+
 local M = {}
 local api = vim.api
 

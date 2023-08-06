@@ -1,13 +1,23 @@
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust" },
+  -- ensure_installed = { 
+  --   "markdown",
+  --   "c", 
+  --   "lua", 
+  --   "rust",
+  --   "python",
+  --   "bash",
+  --   "javascript",
+  --   "typescript",
+  --   "nix",
+  -- },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = false,
+  auto_install = true,
 
   -- List of parsers to ignore installing (for "all")
   ignore_install = { "javascript", "lua" },
@@ -40,3 +50,21 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- -- https://www.jmaguire.tech/posts/treesitter_folding/
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+--
+-- -- That will get you all setup! Easy right? Now the one thing I found to be annoying was that this will default all folds to be closed on any file that you open. To switch that, so all folds are open on any file you open, we’re going to add an autocommand to run after a file/buffer is opened to open all folds in that file:
+-- local M = {}
+-- function M.nvim_create_augroups(definitions)
+--     for group_name, definition in pairs(definitions) do
+--         api.nvim_command('augroup '..group_name)
+--         api.nvim_command('autocmd!')
+--         for _, def in ipairs(definition) do
+--             local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+--             api.nvim_command(command)
+--         end
+--         api.nvim_command('augroup END')
+--     end
+-- end

@@ -4,8 +4,20 @@
 --})
 
 local utils = require("utils._set_mappings")
-utils.nnoremap("<leader>tt", "<cmd>ToggleTerm<cr>") 
-utils.nnoremap("<leader>tc", "<cmd>lcd %:p:h|term<cr>") 
+local prefix = "<C-j>t"
+-- utils.nnoremap(utils.prefix.."tt", "<cmd>ToggleTerm<cr>") 
+utils.nnoremap(prefix.."t", "<cmd>ToggleTerm<cr>")
+utils.nnoremap(prefix.."rg", "<cmd>TermExec cmd='lazygit'<cr>")
+utils.nnoremap(prefix.."rpy", "<cmd>TermExec cmd='python %'<cr>")
+utils.nnoremap(prefix.."rpt", "<cmd>TermExec cmd='coverage run -m pytest -v %'<cr>")
+utils.nnoremap(prefix.."rno", "<cmd>TermExec cmd='node %'<cr>")
+utils.nnoremap(prefix.."rde", "<cmd>TermExec cmd='deno %'<cr>")
+utils.nnoremap(prefix.."rts", "<cmd>TermExec cmd='npx tsc %'<cr>")
+utils.nnoremap(prefix.."rzg", "<cmd>TermExec cmd='zig run %'<cr>")
+utils.nnoremap(prefix.."rcw", "<cmd>TermExec cmd='crosshair watch %'<cr>")
+utils.nnoremap(prefix.."rcc", "<cmd>TermExec cmd='crosshair check --report_all %'<cr>")
+utils.nnoremap(prefix.."rsh", "<cmd>TermExec cmd='sh %'<cr>")
+utils.nnoremap(prefix.."rlu", "<cmd>TermExec cmd='lua %'<cr>")
 
 require("toggleterm").setup({
   direction = 'vertical',
@@ -50,7 +62,9 @@ require("toggleterm").setup({
 --  direction = 'vertical' | 'horizontal' | 'tab' | 'float',
   direction = 'float',
 --  close_on_exit = true, -- close the terminal window when the process exits
---  shell = vim.o.shell, -- change the default shell
+  -- shell = vim.o.shell, -- change the default shell
+  -- shell = "/bin/zsh",
+  shell = "/root/.nix-profile/bin/zsh",
 --  auto_scroll = true, -- automatically scroll to the bottom on terminal output
 --  -- This field is only relevant if direction is set to 'float'
   float_opts = {

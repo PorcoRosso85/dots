@@ -4,15 +4,15 @@ local lspkind = require("lspkind")
 local devicons = require('nvim-web-devicons')
 
 cmp.setup({
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end,
-  },
+  -- snippet = {
+  --   -- REQUIRED - you must specify a snippet engine
+  --   expand = function(args)
+  --     -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+  --     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+  --     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+  --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+  --   end,
+  -- },
   enabled = function()
     local context = require("cmp.config.context")
     if vim.api.nvim_get_mode().mode == 'c' then
@@ -22,11 +22,11 @@ cmp.setup({
       -- https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques
       --  and nocontext.in_treesitter_captre("comment")
     end
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    cmp.event:on(
-      'confirm_done',
-      cmp_autopairs.on_confirm_done()
-    )
+    -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    -- cmp.event:on(
+    --   'confirm_done',
+    --   cmp_autopairs.on_confirm_done()
+    -- )
   end,
   style = {
     winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
@@ -92,39 +92,51 @@ cmp.setup({
   view = {
     entries = "native"
   },
-  -- sorting = {
-  --   --keep priority weight at 2 for much closer matches to appear above copilot
-  --   --set to 1 to make copilot always appear on top
-  --   priority_weight = 1,
-  --   comparators = {
-  --     -- order matters here
-  --     cmp.config.compare.exact,
-  --     has_copilot and copilot_cmp.prioritize or nil,
-  --     has_copilot and copilot_cmp.score or nil,
-  --     cmp.config.compare.offset,
-  --     -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-  --     cmp.config.compare.score,
-  --     cmp.config.compare.recently_used,
-  --     cmp.config.compare.locality,
-  --     cmp.config.compare.kind,
-  --     cmp.config.compare.sort_text,
-  --     cmp.config.compare.length,
-  --     cmp.config.compare.order,
-  --     -- personal settings:
-  --     cmp.config.compare.recently_used,
-  --     cmp.config.compare.offset,
-  --     cmp.config.compare.score,
-  --     cmp.config.compare.sort_text,
-  --     cmp.config.compare.length,
-  --     cmp.config.compare.order,
-  --   },
-  -- },
+  sorting = {
+    --keep priority weight at 2 for much closer matches to appear above copilot
+    --set to 1 to make copilot always appear on top
+    priority_weight = 2,
+    comparators = {
+      -- order matters here
+      cmp.config.compare.exact,
+      has_copilot and copilot_cmp.prioritize or nil,
+      has_copilot and copilot_cmp.score or nil,
+      cmp.config.compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+      -- personal settings:
+      cmp.config.compare.recently_used,
+      cmp.config.compare.offset,
+      cmp.config.compare.score,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+    priority_weight = 2,
+    comparators = {
+      require('cmp_tabnine.compare'),
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
   sources = {
     { name = "nvim_lsp" },
-    { name = "luasnip" },
+    -- { name = "luasnip" },
     -- { name = "vsnip" },
     { name = "path" },
-    { name = "cmp_tabnine" },
+    -- { name = "cmp_tabnine" },
     { name = "skkeleton" },
     { name = "copilot" },
   }, {
@@ -138,8 +150,11 @@ cmp.setup({
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
     -- ["<C-l>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
-    ["<C-CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false
+    }),
+    -- ["<C-CR>"] = cmp.mapping.confirm({ select = true }),
 --      ["<UP>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior }),
 --      ["<DOWN>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior })
     ["<C-l>"] = cmp.mapping.complete({
@@ -234,7 +249,8 @@ require("copilot_cmp").setup {
   method = "getCompletionsCycling",
   formatters = {
     label = require("copilot_cmp.format").format_label_text,
-    insert_text = require("copilot_cmp.format").format_insert_text,
+    -- insert_text = require("copilot_cmp.format").format_insert_text,
+    insert_text = require("copilot_cmp.format").remove_existing,
     preview = require("copilot_cmp.format").deindent,
   },
 }
