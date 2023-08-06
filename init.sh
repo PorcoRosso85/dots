@@ -1,6 +1,9 @@
 #!/bin/bash
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install wget curl
+sudo apt-get install wget curl zsh
+
+sudo bash -c "echo '/bin/zsh' >> /etc/shells"
+sudo chsh -s /bin/zsh
 
 devbox() {
     sudo systemctl stop nix-daemon.service
