@@ -2,12 +2,6 @@
 sudo apt-get update -y && sudo apt-get upgrade -y
 sudo apt-get install wget curl
 
-vsc_srv() {
-   wget -q -O- 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' | tar -zxf - 
-   echo "command 'code' if you use vsc as server"
-}
-vsc_srv
-
 devbox() {
     sudo systemctl stop nix-daemon.service
     sudo systemctl disable nix-daemon.socket nix-daemon.service
@@ -54,4 +48,3 @@ sudo apt-get install gh -y
 
 curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
 curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash
-sudo rm ./y
