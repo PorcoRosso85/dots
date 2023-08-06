@@ -1,9 +1,21 @@
 #!/bin/bash
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install wget curl zsh
+sudo apt-get install \
+    wget \
+    curl \
+    gh \
+    direnv \
+    -y
 
-sudo bash -c "echo '/bin/zsh' >> /etc/shells"
-sudo chsh -s /bin/zsh
+# sudo apt-get install zsh
+# sudo bash -c "echo '/bin/zsh' >> /etc/shells"
+# sudo chsh -s /bin/zsh
+
+# vsc_srv() {
+#    wget -q -O- 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' | tar -zxf - 
+#    echo "command 'code' if you use vsc as server"
+# }
+# vsc_srv
 
 devbox() {
     sudo systemctl stop nix-daemon.service
@@ -43,11 +55,12 @@ devbox() {
     curl -fsSL https://get.jetpack.io/devbox | bash
 }
 devbox
+
+curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
+
 echo "install nix manually"
 echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
 
-sudo apt-get install gh -y
-
-
-curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
-curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash
+echo "install docker manually"
+# curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash
+echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash"
