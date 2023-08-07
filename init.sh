@@ -4,7 +4,6 @@ sudo apt-get install \
     wget \
     curl \
     gh \
-    direnv \
     -y
 
 # sudo apt-get install zsh
@@ -57,6 +56,10 @@ devbox() {
 devbox
 
 curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
+
+curl -sfL https://direnv.net/install.sh | bash
+eval "$(direnv hook bash)"
+
 
 echo "install nix manually"
 echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
