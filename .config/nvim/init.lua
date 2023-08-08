@@ -1,6 +1,6 @@
-require("vimplugs")
--- require("lazy")
+-- require("vimplugs")
+-- -- require("lazy")
 
-require("settings._mappings")
-require("settings._options")
-require("settings._provider")
+-- require("settings._mappings")
+-- require("settings._options")
+-- require("settings._provider")
