@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# dotsリポジトリのローカルへの反映と、リモートへの更新を定義する
-
 set -e
 
 DOTS=".dots"
@@ -9,12 +7,6 @@ DOTS_DIR="$HOME/$DOTS"
 GIT_EXECUTABLE="/usr/bin/git"
 RC_PATH="$HOME/.bashrc"
 REMOTE_REPO_URL="https://github.com/PorcoRosso85/dots.git"
-
-rollback() {
-  echo "An error occurred! Rolling back changes..."
-  rm -rf "$DOTS_DIR"
-  dots_alias config --unset alias.dots
-}
 
 dots_alias() {
   $GIT_EXECUTABLE --git-dir=$DOTS_DIR --work-tree=$HOME "$@"
@@ -31,112 +23,45 @@ add_alias_to_rc() {
 OVERRIDE_DIRS=("$HOME/.config" "$HOME/.init")
 FORCE_OVERRIDE=true
 
-handle_untracked_files() {
-  # Detect untracked files that would be overwritten by checkout
-  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting")
-  if [ ! -z "$UNTRACKED" ]; then
-    echo "Detected untracked files."
-    echo "$UNTRACKED" | while read -r untracked_file; do
-      # Trim any leading whitespace and the trailing colon
-      untracked_file="$(echo "$untracked_file" | sed 's/^[ \t]*//;s/:$//')"
-      # Check if the file/directory should be overridden
-      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$untracked_file " || "$FORCE_OVERRIDE" == true ]]; then
-        echo "Overriding $HOME/$untracked_file"
-        rm -rf "$HOME/$untracked_file"
-      else
-        echo "Moving untracked file $HOME/$untracked_file to $BACKUP_DIR"
-        mv "$HOME/$untracked_file" "$BACKUP_DIR/"
-      fi
-    done
-  fi
-}
-
-handle_conflicts() {
-  # Before checkout, fetch and identify potential conflicts
-  dots_alias fetch
-  CONFLICTS=$(dots_alias checkout 2>&1 | grep "would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting")
-  if [ ! -z "$CONFLICTS" ]; then
-    echo "Detected file conflicts."
-    for conflict in $CONFLICTS; do
-      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$conflict " || "$FORCE_OVERRIDE" == true ]]; then
-        echo "Overriding $HOME/$conflict"
-        rm -rf "$HOME/$conflict"
-      else
-        echo "Moving conflicting file $HOME/$conflict to $BACKUP_DIR"
-        mv "$HOME/$conflict" "$BACKUP_DIR/"
-      fi
-    done
-  fi
-}
-
-push_dots() {
-  if [[ -d "$DOTS_DIR" ]]; then
-    echo "$DOTS directory already exists. Skipping setup."
-    return 1
-  fi
-
-  trap rollback ERR
-
-  echo "Setting up $DOTS directory..."
-  $GIT_EXECUTABLE init --bare "$DOTS_DIR"
-  add_alias_to_rc
-  dots_alias config --local status.showUntrackedFiles no
-  echo "$DOTS directory has been set up."
-  echo "Please restart your terminal or run 'source $RC_PATH' to use the 'dots' alias."
-
-  dots_alias add .vimrc
-  dots_alias commit -m "Add vimrc"
-  dots_alias add .bashrc
-  dots_alias commit -m "Add bashrc"
-  dots_alias remote add origin "$REMOTE_REPO_URL"
-  # Fetch to determine the default branch
-  dots_alias fetch
-  DEFAULT_BRANCH=$(dots_alias branch -r | sed -n '/\* /s///p')
-  dots_alias push -u origin "$DEFAULT_BRANCH"
-
-  trap - ERR
+handle_files_before_checkout() {
+  FILES_TO_CHECKOUT=$(dots_alias ls-tree -r HEAD --name-only)
+  for file in $FILES_TO_CHECKOUT; do
+    if [[ -e "$HOME/$file" && ( " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$file " || "$FORCE_OVERRIDE" == true ) ]]; then
+      rm -rf "$HOME/$file"
+    fi
+  done
 }
 
 pull_dots() {
-  # If the .dots directory already exists, remove it
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Removing it..."
     rm -rf "$DOTS_DIR"
   fi
-
-  trap rollback ERR
 
   echo "Cloning $DOTS directory..."
   $GIT_EXECUTABLE clone --bare "$REMOTE_REPO_URL" "$DOTS_DIR"
   echo "$DOTS" >> "$HOME/.gitignore"
   add_alias_to_rc
 
-  BACKUP_DIR="$HOME/.dots_backup"
-  mkdir -p "$BACKUP_DIR"
+  handle_files_before_checkout
   
-  # Handle conflicts
-  handle_untracked_files
-  handle_conflicts
-
   dots_alias checkout
   echo "source $RC_PATH" >> "$RC_PATH"
   source "$RC_PATH"
   echo "$DOTS directory has been cloned and set up."
-
-  trap - ERR
 }
 
 main() {
   echo "WARNING: Before running this script, ensure you trust its source."
   echo "Choose an action:"
-  echo "1. Set up a new $DOTS directory (push_dots)"
+  echo "1. Set up a new $DOTS directory (This functionality is not supported in the modified code)"
   echo "2. Clone an existing $DOTS directory (pull_dots)"
   echo "Enter the number corresponding to your choice: "
   read choice
 
   case "$choice" in
     1)
-      push_dots
+      echo "This functionality is not supported in the modified code."
       ;;
     2)
       pull_dots
