@@ -84,6 +84,24 @@ deno() {
 }
 deno
 
+# lazygit() {
+#     # 最新のリリースのバージョンを取得
+#     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+
+#     # 最新バージョンのlazygitをダウンロード
+#     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    
+#     # tar.gzファイルからlazygitを抽出
+#     tar xf lazygit.tar.gz lazygit
+
+#     # lazygitを/usr/local/binにインストール
+#     sudo install lazygit /usr/local/bin
+
+#     # 一時的なファイルを削除
+#     rm lazygit.tar.gz
+# }
+# lazygit
+
 echo "install nix manually"
 echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
 

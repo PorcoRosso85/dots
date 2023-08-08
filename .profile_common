@@ -1,9 +1,6 @@
 export EDITOR=nvim
 export TERM=xterm-256color
 
-PROJECT_PATH=$HOME/mount/project/
-
-bindkey -v
 # bind -vi '"\e[1;9D": backward-word'
 # bind -vi '"\e[1;9C": forward-word'
 # bindkey -a '^[[1;9D' backward-word
@@ -19,10 +16,15 @@ bindkey -v
 # export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # [alias]
-alias ls='ls -la'
+DOTS=".dots"
+DOTS_DIR="$HOME/$DOTS"
+GIT_EXECUTABLE="/usr/bin/git"
+RC_PATH="$HOME/.bashrc"
+REMOTE_REPO_URL="https://github.com/PorcoRosso85/dots.git"
 
-alias g='git'
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dots_alias() {
+  $GIT_EXECUTABLE --git-dir=$DOTS_DIR --work-tree=$HOME "$@"
+}
 
 #alias cdf='cd $(find . -maxdepth 3 -type d | fzf)'
 alias cdfm='cd $(find /mnt/c/Users/admin.DESKTOP-1PF4AT3/ -maxdepth 3 -type d | grep "Documents\|Downloads\|wsl" | fzf)'
@@ -40,7 +42,7 @@ alias dcsp='docker system purge'
 alias dce='docker exec'
 
 
-#
+
 glp() {
   preview="git diff $@ --color=always -- {-1}"
   git diff $@ --name-only | fzf -m --ansi --preview $preview
@@ -132,11 +134,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # source $HOME/.extension/env/python_venv_auto.sh
 
-eval "$(direnv hook zsh)"
-# export PATH=$PATH:$HOME/.local/bin
-
-# source $HOME/.inputrc
-#
 alias exdev='docker start dev01 && docker exec -it dev01 zsh'
 
 alias rundev=' docker run \
@@ -166,6 +163,6 @@ alias runnix=' docker run \
 alias exnix='docker start n01 && docker exec -it n01 zsh'
 
 
-export LD_LIBRARY_PATH=/nix/store/g3g89nki211vi892cr6vg57aihvjk302-z3-4.8.15-python/lib/python3.10/site-packages/z3/lib/libz3.so:/nix/store/rgdmlsv1fn32pwclapv6zi59fyjc3zf2-z3-4.8.15-lib/lib/libz3.so
+# export LD_LIBRARY_PATH=/nix/store/g3g89nki211vi892cr6vg57aihvjk302-z3-4.8.15-python/lib/python3.10/site-packages/z3/lib/libz3.so:/nix/store/rgdmlsv1fn32pwclapv6zi59fyjc3zf2-z3-4.8.15-lib/lib/libz3.so
 
-export PATH=$PATH:$HOME/.cargo
+# export PATH=$PATH:$HOME/.cargo
