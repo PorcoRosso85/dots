@@ -1,28 +1,34 @@
-#!/bin/zsh
+#!/bin/bash
 
-# Set immediate exit if any command fails
+# dotsリポジトリのローカルへの反映と、リモートへの更新を定義する
+
 set -e
 
-# Define the dotfiles directory, git executable, zshrc path, and remote repository URL
 DOTS=".dots"
 DOTS_DIR="$HOME/$DOTS"
 GIT_EXECUTABLE="/usr/bin/git"
-ZSHRC_PATH="$HOME/.zshrc"
+RC_PATH="$HOME/.bashrc"
 REMOTE_REPO_URL="https://github.com/PorcoRosso85/dots.git"
 
 rollback() {
   echo "An error occurred! Rolling back changes..."
   rm -rf "$DOTS_DIR"
-  sed -i '/alias dots/d' "$ZSHRC_PATH"
+  dots_alias config --unset alias.dots
 }
 
 dots_alias() {
   $GIT_EXECUTABLE --git-dir=$DOTS_DIR --work-tree=$HOME "$@"
 }
 
-# Function to set up the dotfiles repository and push changes
+add_alias_to_rc() {
+  # Remove if alias exists using dots_alias config
+  dots_alias config --unset alias.dots 2>/dev/null || true
+  # Add the new alias
+  dots_alias config alias.dots 'dots_alias'
+  echo "alias dots='dots_alias'" >> "$RC_PATH"
+}
+
 push_dots() {
-  # Common setup code
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Skipping setup."
     return 1
@@ -32,25 +38,25 @@ push_dots() {
 
   echo "Setting up $DOTS directory..."
   $GIT_EXECUTABLE init --bare "$DOTS_DIR"
-  echo "alias dots='dots_alias'" >> "$ZSHRC_PATH"
+  add_alias_to_rc
   dots_alias config --local status.showUntrackedFiles no
   echo "$DOTS directory has been set up."
-  echo "Please restart your terminal or run 'source $ZSHRC_PATH' to use the 'dots' alias."
+  echo "Please restart your terminal or run 'source $RC_PATH' to use the 'dots' alias."
 
-  # Add, commit and push files
   dots_alias add .vimrc
   dots_alias commit -m "Add vimrc"
-  dots_alias add .zshrc
-  dots_alias commit -m "Add zshrc"
+  dots_alias add .bashrc
+  dots_alias commit -m "Add bashrc"
   dots_alias remote add origin "$REMOTE_REPO_URL"
-  dots_alias push -u origin master
+  # Fetch to determine the default branch
+  dots_alias fetch
+  DEFAULT_BRANCH=$(dots_alias branch -r | sed -n '/\* /s///p')
+  dots_alias push -u origin "$DEFAULT_BRANCH"
 
   trap - ERR
 }
 
-# Function to clone an existing dotfiles repository
 pull_dots() {
-  # Common clone code
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Please remove it before cloning a new one."
     return 1
@@ -61,8 +67,8 @@ pull_dots() {
   echo "Cloning $DOTS directory..."
   $GIT_EXECUTABLE clone --bare "$REMOTE_REPO_URL" "$DOTS_DIR"
   echo "$DOTS" >> "$HOME/.gitignore"
+  add_alias_to_rc
 
-  # Check for potential conflicts before checkout
   BACKUP_DIR="$HOME/dots_backup_$(date +%Y%m%d%H%M%S)"
   mkdir -p "$BACKUP_DIR"
   dots_alias fetch
@@ -71,20 +77,18 @@ pull_dots() {
     mv "$HOME/$conflict" "$BACKUP_DIR/"
   done
 
-  # Attempt to checkout again
+  echo "If there were any file conflicts, the originals have been moved to: $BACKUP_DIR"
+
   dots_alias checkout
-
-  # If you want to restore files from the backup directory after successful checkout, you can do so here.
-
-  echo "source $ZSHRC_PATH" >> "$ZSHRC_PATH"
-  source "$ZSHRC_PATH"
+  echo "source $RC_PATH" >> "$RC_PATH"
+  source "$RC_PATH"
   echo "$DOTS directory has been cloned and set up."
 
   trap - ERR
 }
 
-# Main script
 main() {
+  echo "WARNING: Before running this script, ensure you trust its source."
   echo "Choose an action:"
   echo "1. Set up a new $DOTS directory (push_dots)"
   echo "2. Clone an existing $DOTS directory (pull_dots)"
