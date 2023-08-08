@@ -32,6 +32,34 @@ handle_files_before_checkout() {
   done
 }
 
+push_dots() {
+  if [[ -d "$DOTS_DIR" ]]; then
+    echo "$DOTS directory already exists. Skipping setup."
+    return 1
+  fi
+
+  trap rollback ERR
+
+  echo "Setting up $DOTS directory..."
+  $GIT_EXECUTABLE init --bare "$DOTS_DIR"
+  add_alias_to_rc
+  dots_alias config --local status.showUntrackedFiles no
+  echo "$DOTS directory has been set up."
+  echo "Please restart your terminal or run 'source $RC_PATH' to use the 'dots' alias."
+
+  dots_alias add .vimrc
+  dots_alias commit -m "Add vimrc"
+  dots_alias add .bashrc
+  dots_alias commit -m "Add bashrc"
+  dots_alias remote add origin "$REMOTE_REPO_URL"
+  # Fetch to determine the default branch
+  dots_alias fetch
+  DEFAULT_BRANCH=$(dots_alias branch -r | sed -n '/\* /s///p')
+  dots_alias push -u origin "$DEFAULT_BRANCH"
+
+  trap - ERR
+}
+
 pull_dots() {
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Removing it..."
