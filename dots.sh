@@ -32,6 +32,23 @@ handle_files_before_checkout() {
   done
 }
 
+# 新しい関数を追加
+handle_checkout_errors() {
+  CHECKOUT_ERROR=$(dots_alias checkout 2>&1 || true)
+  if [[ $CHECKOUT_ERROR == *"would be overwritten by checkout"* ]]; then
+    echo "$CHECKOUT_ERROR" | grep "would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting" | while read -r conflicted_file; do
+      conflicted_file=$(echo "$conflicted_file" | sed 's/^[ \t]*//;s/:$//')
+      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$conflicted_file " || "$FORCE_OVERRIDE" == true ]]; then
+        echo "Overriding $HOME/$conflicted_file"
+        rm -rf "$HOME/$conflicted_file"
+      else
+        echo "Cannot handle conflict for $HOME/$conflicted_file automatically. Please address this manually."
+      fi
+    done
+    dots_alias checkout
+  fi
+}
+
 push_dots() {
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Skipping setup."
@@ -72,8 +89,10 @@ pull_dots() {
   add_alias_to_rc
 
   handle_files_before_checkout
+
+  # handle_checkout_errors関数を呼び出す
+  handle_checkout_errors
   
-  dots_alias checkout
   echo "source $RC_PATH" >> "$RC_PATH"
   source "$RC_PATH"
   echo "$DOTS directory has been cloned and set up."
