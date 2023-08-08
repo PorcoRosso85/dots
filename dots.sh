@@ -28,6 +28,33 @@ add_alias_to_rc() {
   echo "alias dots='dots_alias'" >> "$RC_PATH"
 }
 
+handle_untracked_files() {
+  # Detect untracked files that would be overwritten by checkout
+  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +2)
+  if [ ! -z "$UNTRACKED" ]; then
+    echo "Detected untracked files. Moving untracked files to $BACKUP_DIR"
+    for untracked_file in $UNTRACKED; do
+      if [[ -f "$HOME/$untracked_file" ]]; then
+        mv "$HOME/$untracked_file" "$BACKUP_DIR/"
+      fi
+    done
+  fi
+}
+
+handle_conflicts() {
+  # Before checkout, fetch and identify potential conflicts
+  dots_alias fetch
+  CONFLICTS=$(dots_alias checkout 2>&1 | grep "would be overwritten by checkout:" -A1000 | tail -n +2)
+  if [ ! -z "$CONFLICTS" ]; then
+    echo "Detected file conflicts. Moving conflicting files to $BACKUP_DIR"
+    for conflict in $CONFLICTS; do
+      if [[ -f "$HOME/$conflict" ]]; then
+        mv "$HOME/$conflict" "$BACKUP_DIR/"
+      fi
+    done
+  fi
+}
+
 push_dots() {
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Skipping setup."
@@ -57,9 +84,10 @@ push_dots() {
 }
 
 pull_dots() {
+  # If the .dots directory already exists, remove it
   if [[ -d "$DOTS_DIR" ]]; then
-    echo "$DOTS directory already exists. Please remove it before cloning a new one."
-    return 1
+    echo "$DOTS directory already exists. Removing it..."
+    rm -rf "$DOTS_DIR"
   fi
 
   trap rollback ERR
@@ -69,15 +97,12 @@ pull_dots() {
   echo "$DOTS" >> "$HOME/.gitignore"
   add_alias_to_rc
 
-  BACKUP_DIR="$HOME/dots_backup_$(date +%Y%m%d%H%M%S)"
+  BACKUP_DIR="$HOME/.dots_backup"
   mkdir -p "$BACKUP_DIR"
-  dots_alias fetch
-  CONFLICTS=$(dots_alias checkout 2>&1 | grep "existing file" | awk '{print $1}')
-  for conflict in $CONFLICTS; do
-    mv "$HOME/$conflict" "$BACKUP_DIR/"
-  done
-
-  echo "If there were any file conflicts, the originals have been moved to: $BACKUP_DIR"
+  
+  # Handle conflicts
+  handle_untracked_files
+  handle_conflicts
 
   dots_alias checkout
   echo "source $RC_PATH" >> "$RC_PATH"
