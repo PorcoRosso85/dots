@@ -10,4 +10,4 @@ This is the place where
 curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/init.sh | bash
 
 ## dots
-curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/dev/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh
+curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/main/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh

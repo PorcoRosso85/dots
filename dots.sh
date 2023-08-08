@@ -28,15 +28,23 @@ add_alias_to_rc() {
   echo "alias dots='dots_alias'" >> "$RC_PATH"
 }
 
+OVERRIDE_DIRS=("$HOME/.config" "$HOME/.init")
+FORCE_OVERRIDE=true
+
 handle_untracked_files() {
   # Detect untracked files that would be overwritten by checkout
-  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +1000)
+  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting")
   if [ ! -z "$UNTRACKED" ]; then
-    echo "Detected untracked files. Moving untracked files to $BACKUP_DIR"
+    echo "Detected untracked files."
     echo "$UNTRACKED" | while read -r untracked_file; do
-      # Trim any leading whitespace
-      untracked_file="$(echo "$untracked_file" | sed 's/^[ \t]*//')"
-      if [[ -f "$HOME/$untracked_file" ]]; then
+      # Trim any leading whitespace and the trailing colon
+      untracked_file="$(echo "$untracked_file" | sed 's/^[ \t]*//;s/:$//')"
+      # Check if the file/directory should be overridden
+      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$untracked_file " || "$FORCE_OVERRIDE" == true ]]; then
+        echo "Overriding $HOME/$untracked_file"
+        rm -rf "$HOME/$untracked_file"
+      else
+        echo "Moving untracked file $HOME/$untracked_file to $BACKUP_DIR"
         mv "$HOME/$untracked_file" "$BACKUP_DIR/"
       fi
     done
@@ -46,11 +54,15 @@ handle_untracked_files() {
 handle_conflicts() {
   # Before checkout, fetch and identify potential conflicts
   dots_alias fetch
-  CONFLICTS=$(dots_alias checkout 2>&1 | grep "would be overwritten by checkout:" -A1000 | tail -n +2)
+  CONFLICTS=$(dots_alias checkout 2>&1 | grep "would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting")
   if [ ! -z "$CONFLICTS" ]; then
-    echo "Detected file conflicts. Moving conflicting files to $BACKUP_DIR"
+    echo "Detected file conflicts."
     for conflict in $CONFLICTS; do
-      if [[ -f "$HOME/$conflict" ]]; then
+      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$conflict " || "$FORCE_OVERRIDE" == true ]]; then
+        echo "Overriding $HOME/$conflict"
+        rm -rf "$HOME/$conflict"
+      else
+        echo "Moving conflicting file $HOME/$conflict to $BACKUP_DIR"
         mv "$HOME/$conflict" "$BACKUP_DIR/"
       fi
     done
