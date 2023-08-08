@@ -32,6 +32,51 @@ handle_files_before_checkout() {
   done
 }
 
+# 新しい関数を追加
+handle_checkout_errors() {
+  CHECKOUT_ERROR=$(dots_alias checkout 2>&1 || true)
+  if [[ $CHECKOUT_ERROR == *"would be overwritten by checkout"* ]]; then
+    echo "$CHECKOUT_ERROR" | grep "would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting" | while read -r conflicted_file; do
+      conflicted_file=$(echo "$conflicted_file" | sed 's/^[ \t]*//;s/:$//')
+      if [[ " ${OVERRIDE_DIRS[@]} " =~ " $HOME/$conflicted_file " || "$FORCE_OVERRIDE" == true ]]; then
+        echo "Overriding $HOME/$conflicted_file"
+        rm -rf "$HOME/$conflicted_file"
+      else
+        echo "Cannot handle conflict for $HOME/$conflicted_file automatically. Please address this manually."
+      fi
+    done
+    dots_alias checkout
+  fi
+}
+
+push_dots() {
+  if [[ -d "$DOTS_DIR" ]]; then
+    echo "$DOTS directory already exists. Skipping setup."
+    return 1
+  fi
+
+  trap rollback ERR
+
+  echo "Setting up $DOTS directory..."
+  $GIT_EXECUTABLE init --bare "$DOTS_DIR"
+  add_alias_to_rc
+  dots_alias config --local status.showUntrackedFiles no
+  echo "$DOTS directory has been set up."
+  echo "Please restart your terminal or run 'source $RC_PATH' to use the 'dots' alias."
+
+  dots_alias add .vimrc
+  dots_alias commit -m "Add vimrc"
+  dots_alias add .bashrc
+  dots_alias commit -m "Add bashrc"
+  dots_alias remote add origin "$REMOTE_REPO_URL"
+  # Fetch to determine the default branch
+  dots_alias fetch
+  DEFAULT_BRANCH=$(dots_alias branch -r | sed -n '/\* /s///p')
+  dots_alias push -u origin "$DEFAULT_BRANCH"
+
+  trap - ERR
+}
+
 pull_dots() {
   if [[ -d "$DOTS_DIR" ]]; then
     echo "$DOTS directory already exists. Removing it..."
@@ -44,8 +89,10 @@ pull_dots() {
   add_alias_to_rc
 
   handle_files_before_checkout
+
+  # handle_checkout_errors関数を呼び出す
+  handle_checkout_errors
   
-  dots_alias checkout
   echo "source $RC_PATH" >> "$RC_PATH"
   source "$RC_PATH"
   echo "$DOTS directory has been cloned and set up."
