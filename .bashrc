@@ -17,7 +17,10 @@
 # alias cp='cp -i'
 # alias mv='mv -i'
 
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+COMMON_PROFILE=$HOME/.profile_common
+if [ -e $COMMON_PROFILE ]
+    then source $COMMON_PROFILE
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
