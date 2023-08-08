@@ -67,3 +67,6 @@ echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
 echo "install docker manually"
 # curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash
 echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash"
+
+echo "install dots manually"
+echo "curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/dev/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh"

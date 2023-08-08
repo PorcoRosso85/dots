@@ -30,10 +30,12 @@ add_alias_to_rc() {
 
 handle_untracked_files() {
   # Detect untracked files that would be overwritten by checkout
-  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +2)
+  UNTRACKED=$(dots_alias checkout 2>&1 | grep "untracked working tree files would be overwritten by checkout:" -A1000 | tail -n +1000)
   if [ ! -z "$UNTRACKED" ]; then
     echo "Detected untracked files. Moving untracked files to $BACKUP_DIR"
-    for untracked_file in $UNTRACKED; do
+    echo "$UNTRACKED" | while read -r untracked_file; do
+      # Trim any leading whitespace
+      untracked_file="$(echo "$untracked_file" | sed 's/^[ \t]*//')"
       if [[ -f "$HOME/$untracked_file" ]]; then
         mv "$HOME/$untracked_file" "$BACKUP_DIR/"
       fi
