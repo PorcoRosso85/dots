@@ -4,6 +4,7 @@ sudo apt-get install \
     wget \
     curl \
     gh \
+    unzip \
     -y
 
 # sudo apt-get install zsh
@@ -60,6 +61,28 @@ curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
 curl -sfL https://direnv.net/install.sh | bash
 eval "$(direnv hook bash)"
 
+deno() {
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+    
+    # Check if DENO_INSTALL is already present in .bashrc
+    if ! grep -q "export DENO_INSTALL=\"/home/user/.deno\"" "$HOME/.bashrc"; then
+        echo 'export DENO_INSTALL="/home/user/.deno"' >> $HOME/.bashrc
+        echo 'export PATH="$DENO_INSTALL/bin:$PATH"' >> $HOME/.bashrc
+        echo "Deno paths added to .bashrc"
+        source $HOME/.bashrc
+    else
+        echo "Deno paths already present in .bashrc"
+    fi
+    
+    # Check if deno is available
+    if command -v deno &> /dev/null; then
+        echo "Deno is available. No need to create a symlink."
+    else
+        echo "Deno is not available. Creating a symlink..."
+        sudo ln -s /home/user/.deno/bin/deno /usr/local/bin/deno
+    fi
+}
+deno
 
 echo "install nix manually"
 echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
