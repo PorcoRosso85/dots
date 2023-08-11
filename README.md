@@ -5,9 +5,11 @@ This is the place where
 * how dotfiles to be update
 * how updated dotfiles to be restore to new terminal
 
+## nix
+bash <(curl -L https://nixos.org/nix/install) --daemon
 
 ## init
-curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/init.sh | bash
+curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/init.sh | bash
 
 ## dots
-curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/main/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh
+curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh

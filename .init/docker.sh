@@ -1,7 +1,7 @@
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
-echo "apt-get update"
-sudo apt-get update
+echo "apt-get update, upgrade"
+sudo apt-get update && sudo apt-get upgrade -y
 
 echo "install ca-certificates, gnupg"
 sudo apt-get install ca-certificates curl gnupg
@@ -20,3 +20,4 @@ echo \
 echo "install binaries"
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+# nix profile install nixpkgs#docker
