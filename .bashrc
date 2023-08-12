@@ -118,18 +118,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-common_profile() {
-  COMMON_PROFILE=$HOME/.common_profile
-  if [ -e $COMMON_PROFILE ]
-    then source $COMMON_PROFILE
-  fi
-}
-common_profile
-
-bash_profile() {
-  BASH_PROFILE=$HOME/.bash_profile
-  if [ -e $BASH_PROFILE ]
-    then source $BASH_PROFILE
-  fi
-}

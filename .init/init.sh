@@ -13,43 +13,7 @@ nix profile install nixpkgs#unzip
 # sudo chsh -s /bin/zsh
 
 echo "devbox"
-devbox() {
-    sudo systemctl stop nix-daemon.service
-    sudo systemctl disable nix-daemon.socket nix-daemon.service
-    sudo systemctl daemon-reload
-
-    items_deleted=(
-        "/etc/bashrc"
-        "/etc/bashrc.backup-before-nix"
-        "/etc/profile.d/nix.sh"
-        "/etc/profile.d/nix.sh.backup-before-nix"
-        "/etc/profile.d/nix.sh.backup-before-nix"
-        "/etc/zshrc"
-        "/etc/zshrc.backup-before-nix"
-        "/etc/bash.bashrc"
-        "/etc/bash.bashrc.backup-before-nix"
-        "/etc/nix"
-        "/nix"
-        "/var/root/.nix-profile"
-        "/var/root/.nix-defexpr"
-        "/var/root/.nix-channels"
-        "/Users/simonbein/.nix-profile"
-        "/Users/simonbein/.nix-defexpr"
-        "/Users/simonbein/.nix-channels"
-    )
-
-    for item in "${items_deleted[@]}"; do
-        sudo rm -rf "$item"
-    done
-
-    for i in $(seq 1 32); do
-      sudo userdel nixbld$i
-    done
-    sudo groupdel nixbld
-
-    curl -fsSL https://get.jetpack.io/devbox | bash
-}
-devbox
+curl -fsSL https://get.jetpack.io/devbox | bash
 
 echo "neovim"
 nix profile install nixpkgs#neovim
@@ -87,6 +51,3 @@ deno
 
 echo "install docker manually"
 echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/docker.sh | bash"
-
-echo "install dots manually"
-echo "curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh"
