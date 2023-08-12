@@ -4,19 +4,16 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-
-source $HOME/.bashrc
-source $HOME/.bash_profile
-COMMON_PROFILE=$HOME/.profile_common
-
-if [ -e $COMMON_PROFILE ]
-then source $COMMON_PROFILE
-fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source $HOME/.extension/shell/powerlevel10k/powerlevel10k.zsh-theme
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+source $HOME/.bash_profile
+
+common_profile() {
+  COMMON_PROFILE=$HOME/.common_profile
+  if [ -e $COMMON_PROFILE ]
+    then source $COMMON_PROFILE
+  fi
+}
+common_profile

@@ -118,14 +118,18 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-alias dots='dots_alias'
 
-
-COMMON_PROFILE=$HOME/.profile_common
-if [ -e $COMMON_PROFILE ]
+common_profile() {
+  COMMON_PROFILE=$HOME/.common_profile
+  if [ -e $COMMON_PROFILE ]
     then source $COMMON_PROFILE
-fi
+  fi
+}
+common_profile
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+bash_profile() {
+  BASH_PROFILE=$HOME/.bash_profile
+  if [ -e $BASH_PROFILE ]
+    then source $BASH_PROFILE
+  fi
+}
