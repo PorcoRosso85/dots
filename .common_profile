@@ -1,21 +1,3 @@
-export EDITOR=nvim
-# export TERM=xterm-256color
-
-# bindkey -v
-# bind -vi '"\e[1;9D": backward-word'
-# bind -vi '"\e[1;9C": forward-word'
-# bindkey -a '^[[1;9D' backward-word
-# bindkey -a '^[[1;9C' forward-word
-# bindkey -v -a '^C' vi-cmd-mode
-
-
-# PATH backups 230106
-# /root/.dvm/bin:/root/.nvm/versions/node/v19.3.0/bin:/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files/WezTerm:/mnt/c/Users/admin.DESKTOP-1PF4AT3/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/admin.DESKTOP-1PF4AT3/AppData/Local/Programs/Microsoft VS Code/bin:/root/.local/bin:/root/.fzf/bin:/root/.local/bin
-# 
-# 
-# for session
-# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
 # [alias]
 #alias cdf='cd $(find . -maxdepth 3 -type d | fzf)'
 alias cdfm='cd $(find /mnt/c/Users/admin.DESKTOP-1PF4AT3/ -maxdepth 3 -type d | grep "Documents\|Downloads\|wsl" | fzf)'
@@ -114,6 +96,14 @@ gloj() {
   # https://gist.github.com/varemenos/e95c2e098e657c7688fd
 }
 
-eval "$(direnv hook zsh)"
+eval "$(direnv hook bash)"
 
 export LD_LIBRARY_PATH=/nix/store/g3g89nki211vi892cr6vg57aihvjk302-z3-4.8.15-python/lib/python3.10/site-packages/z3/lib/libz3.so:/nix/store/rgdmlsv1fn32pwclapv6zi59fyjc3zf2-z3-4.8.15-lib/lib/libz3.so
+
+export EDITOR=nvim
+# bindkey -v
+# bind -vi '"\e[1;9D": backward-word'
+# bind -vi '"\e[1;9C": forward-word'
+# bindkey -a '^[[1;9D' backward-word
+# bindkey -a '^[[1;9C' forward-word
+# bindkey -v -a '^C' vi-cmd-mode
