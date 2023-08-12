@@ -31,8 +31,8 @@ handle_files_before_checkout() {
   done
 }
 
-# 新しい関数を追加
 handle_checkout_errors() {
+  # TODO: 既存のdots展開後ファイルがある場合上書きしてくれない
   CHECKOUT_ERROR=$(dots_alias checkout 2>&1 || true)
   if [[ $CHECKOUT_ERROR == *"would be overwritten by checkout"* ]]; then
     echo "$CHECKOUT_ERROR" | grep "would be overwritten by checkout:" -A1000 | tail -n +2 | grep -v "Aborting" | while read -r conflicted_file; do
@@ -89,7 +89,6 @@ pull_dots() {
 
   handle_files_before_checkout
 
-  # handle_checkout_errors関数を呼び出す
   handle_checkout_errors
   
   source "$RC_PATH"
