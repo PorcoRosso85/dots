@@ -1,6 +1,7 @@
 export EDITOR=nvim
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
+# bindkey -v
 # bind -vi '"\e[1;9D": backward-word'
 # bind -vi '"\e[1;9C": forward-word'
 # bindkey -a '^[[1;9D' backward-word
@@ -16,22 +17,9 @@ export TERM=xterm-256color
 # export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # [alias]
-DOTS=".dots"
-DOTS_DIR="$HOME/$DOTS"
-GIT_EXECUTABLE="/usr/bin/git"
-RC_PATH="$HOME/.bashrc"
-REMOTE_REPO_URL="https://github.com/PorcoRosso85/dots.git"
-
-dots_alias() {
-  $GIT_EXECUTABLE --git-dir=$DOTS_DIR --work-tree=$HOME "$@"
-}
-
 #alias cdf='cd $(find . -maxdepth 3 -type d | fzf)'
 alias cdfm='cd $(find /mnt/c/Users/admin.DESKTOP-1PF4AT3/ -maxdepth 3 -type d | grep "Documents\|Downloads\|wsl" | fzf)'
 alias catf='cat $(find . -maxdepth 4 | fzf)'
-#
-
-alias pip='python -m pip'
 
 
 # [alias/docker]
@@ -40,7 +28,6 @@ alias dccl='docker container ls -a'
 alias dccr='docker container rm'
 alias dcsp='docker system purge'
 alias dce='docker exec'
-
 
 
 glp() {
@@ -85,7 +72,6 @@ cmdc() {
 }
 
 
-
 ff() { 
   fd $1 $2 | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'
 }
@@ -128,41 +114,6 @@ gloj() {
   # https://gist.github.com/varemenos/e95c2e098e657c7688fd
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(direnv hook zsh)"
 
-# source $HOME/.extension/env/python_venv_auto.sh
-
-alias exdev='docker start dev01 && docker exec -it dev01 zsh'
-
-alias rundev=' docker run \
-  --volume /Users/az2302tt:/root \
-  --volume /var/run/docker.sock:/var/run/docker.sock \
-  --volumes-from cook-suntory-server \
-  --name dev03 \
-  -it porcorosso85/dev \
-'
-
-# alias runnix=' docker run \
-#   --volume /Users/az2302tt:/root \
-#   --volume /var/run/docker.sock:/var/run/docker.sock \
-#   --volumes-from cook-suntory-server \
-#   --name n01 \
-#   -it nixos/nix
-# '
-
-alias runnix=' docker run \
-  --volume /Users/az2302tt/Documents/dev:/root/mount \
-  --volume /var/run/docker.sock:/var/run/docker.sock \
-  --volumes-from cook-suntory-server \
-  --name n01 \
-  -it nixos/nix \
-'
-
-alias exnix='docker start n01 && docker exec -it n01 zsh'
-
-
-# export LD_LIBRARY_PATH=/nix/store/g3g89nki211vi892cr6vg57aihvjk302-z3-4.8.15-python/lib/python3.10/site-packages/z3/lib/libz3.so:/nix/store/rgdmlsv1fn32pwclapv6zi59fyjc3zf2-z3-4.8.15-lib/lib/libz3.so
-
-# export PATH=$PATH:$HOME/.cargo
+export LD_LIBRARY_PATH=/nix/store/g3g89nki211vi892cr6vg57aihvjk302-z3-4.8.15-python/lib/python3.10/site-packages/z3/lib/libz3.so:/nix/store/rgdmlsv1fn32pwclapv6zi59fyjc3zf2-z3-4.8.15-lib/lib/libz3.so

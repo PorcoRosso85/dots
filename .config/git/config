@@ -27,7 +27,7 @@ email = 1.is.universe@gmail.com
 # external configuration
 [core]
 	excludesfile = ~/.gitignore
-	editor = nvim
+	editor = vscode
 	ignorecase = false
 [push]
   default = simple
@@ -68,3 +68,13 @@ email = 1.is.universe@gmail.com
 #  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
 #  # add conflicted file on merge
 #  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+  
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED

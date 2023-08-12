@@ -17,7 +17,6 @@ add_alias_to_rc() {
   dots_alias config --unset alias.dots 2>/dev/null || true
   # Add the new alias
   dots_alias config alias.dots 'dots_alias'
-  echo "alias dots='dots_alias'" >> "$RC_PATH"
 }
 
 OVERRIDE_DIRS=("$HOME/.config" "$HOME/.init")
@@ -93,7 +92,6 @@ pull_dots() {
   # handle_checkout_errors関数を呼び出す
   handle_checkout_errors
   
-  echo "source $RC_PATH" >> "$RC_PATH"
   source "$RC_PATH"
   echo "$DOTS directory has been cloned and set up."
 }

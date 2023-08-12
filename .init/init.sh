@@ -1,22 +1,18 @@
 #!/bin/bash
-sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install \
-    wget \
-    curl \
-    gh \
-    unzip \
-    -y
+echo "wget"
+nix profile install nixpkgs#wget
+echo "curl"
+nix profile install nixpkgs#curl
+echo "gh"
+nix profile install nixpkgs#gh
+echo "unzip"
+nix profile install nixpkgs#unzip
 
 # sudo apt-get install zsh
 # sudo bash -c "echo '/bin/zsh' >> /etc/shells"
 # sudo chsh -s /bin/zsh
 
-# vsc_srv() {
-#    wget -q -O- 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' | tar -zxf - 
-#    echo "command 'code' if you use vsc as server"
-# }
-# vsc_srv
-
+echo "devbox"
 devbox() {
     sudo systemctl stop nix-daemon.service
     sudo systemctl disable nix-daemon.socket nix-daemon.service
@@ -51,16 +47,21 @@ devbox() {
     done
     sudo groupdel nixbld
 
-    # bash <(curl -L https://nixos.org/nix/install) --daemon
     curl -fsSL https://get.jetpack.io/devbox | bash
 }
 devbox
 
-curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/nvim.sh | bash
+echo "neovim"
+nix profile install nixpkgs#neovim
+# curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/nvim.sh | bash
 
+echo "direnv"
 curl -sfL https://direnv.net/install.sh | bash
-eval "$(direnv hook bash)"
+nix profile install nixpkgs#direnv
+echo 'eval "$(direnv hook bash)"' >> $HOME/.bashrc
 
+echo "deno"
+nix profile install nixpkgs#deno
 deno() {
     curl -fsSL https://deno.land/x/install/install.sh | sh
     
@@ -84,30 +85,8 @@ deno() {
 }
 deno
 
-# lazygit() {
-#     # 最新のリリースのバージョンを取得
-#     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-
-#     # 最新バージョンのlazygitをダウンロード
-#     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    
-#     # tar.gzファイルからlazygitを抽出
-#     tar xf lazygit.tar.gz lazygit
-
-#     # lazygitを/usr/local/binにインストール
-#     sudo install lazygit /usr/local/bin
-
-#     # 一時的なファイルを削除
-#     rm lazygit.tar.gz
-# }
-# lazygit
-
-echo "install nix manually"
-echo "bash <(curl -L https://nixos.org/nix/install) --daemon"
-
 echo "install docker manually"
-# curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash
-echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/docker.sh | bash"
+echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/docker.sh | bash"
 
 echo "install dots manually"
-echo "curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/dev/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh"
+echo "curl -sS -o /tmp/dots.sh https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/dots.sh && bash /tmp/dots.sh && rm /tmp/dots.sh"
