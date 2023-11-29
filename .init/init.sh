@@ -20,7 +20,7 @@ nix profile install nixpkgs#neovim
 # curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/nvim.sh | bash
 
 echo "direnv"
-curl -sfL https://direnv.net/install.sh | bash
+# curl -sfL https://direnv.net/install.sh | bash
 nix profile install nixpkgs#direnv
 echo 'eval "$(direnv hook bash)"' >> $HOME/.bashrc
 
@@ -49,5 +49,11 @@ deno() {
 }
 deno
 
-echo "install docker manually"
-echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/docker.sh | bash"
+# echo "install docker manually"
+# echo "curl -sS https://raw.githubusercontent.com/PorcoRosso85/dots/main/.init/docker.sh | bash"
+
+echo "fd"
+nix profile install nixpkgs#fd
+
+echo "bat"
+nix profile install nixpkgs#bat
